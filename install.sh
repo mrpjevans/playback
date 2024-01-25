@@ -29,7 +29,7 @@ EOF
 
 # Set up desktop
 mkdir -p $HOME/pcmanfm/LXDE-pi
-cp $HOME/playbackos_repo/assets/desktop-items-o.conf $HOME/pcmanfm/LXDE-pi/
+cp $HOME/playbackos_repo/assets/desktop-items-0.conf $HOME/pcmanfm/LXDE-pi/
 
 # Set login to auto/desktop
 sudo systemctl --quiet set-default graphical.target
