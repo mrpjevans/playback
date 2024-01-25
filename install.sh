@@ -6,7 +6,6 @@ WAYFIRE_FILE="$HOME/.config/wayfire.ini"
 sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install git vlc
 
-
 # Repo checkout
 rm -rf $HOME/playbackos_repo
 git clone https://github.com/mrpjevans/playbackos.git $HOME/playbackos_repo
@@ -24,7 +23,7 @@ echo ../videos/playback_os_ident_1.mp4 > $HOME/playbackos/playlists/boot.m3u
 # Autostart
 cat >> $WAYFIRE_FILE << EOF
 [autostart]
-vlc = cvlc $HOMEDIR/playbackos/playlists/boot.m3u
+vlc = cvlc $HOME/playbackos/playlists/boot.m3u
 EOF
 
 # Set up desktop
@@ -45,3 +44,6 @@ EOF"
 if grep -q dpms_timeout $WAYFIRE_FILE ; then
     sed -i 's/dpms_timeout.*/dpms_timeout=600/' $WAYFIRE_FILE
 fi
+
+# Disable taskbar
+sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
