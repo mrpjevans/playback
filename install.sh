@@ -9,7 +9,6 @@ rm -rf ~/playbackos_repo
 git clone https://github.com/mrpjevans/playbackos.git ~/playbackos_repo
 
 # VLC Config
-cd
 cp ~/playbackos_repo/assets/vlcrc ~/.config/vlc/
 
 # Directory setup
@@ -19,7 +18,7 @@ cp ~/playbackos_repo/assets/playback_os_ident_1.mp4 ~/playbackos/videos/
 echo ../videos/playback_os_ident_1.mp4 > ~/playbackos/playlists/boot.m3u
 
 # Autostart
-cat > ~/.config/wayfire.ini << EOF
+cat >> ~/.config/wayfire.ini << EOF
 [autostart]
 vlc = cvlc $(pwd)/playbackos/playlists/boot.m3u
 EOF
