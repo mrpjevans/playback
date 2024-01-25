@@ -131,3 +131,5 @@ dist
 
 # Other
 *.code-workspace
+.vscode
+.DS_Store

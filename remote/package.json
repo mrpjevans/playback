@@ -1,0 +1,45 @@
+{
+	"name": "playbackos_remote",
+	"version": "1.0.0",
+	"description": "Remote control web interface for PlaybackOS",
+	"scripts": {
+		"local": "nodemon src/server.ts --watch",
+		"lint": "eslint --ext .js,.ts .",
+		"format": "prettier --write \"src/**/*.ts\"",
+		"build": "rm -rf ./dist && npm run lint && npm run format && tsc && cp -r ./src/web/static ./dist/web/ && cp -r ./src/web/templates ./dist/web/",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mrpjevans/playbackos.git"
+	},
+	"keywords": [
+		"raspberrypi",
+		"video",
+		"mediaplayer"
+	],
+	"author": "PJ Evans <pj@mrpjevans.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/mrpjevans/playbackos/issues"
+	},
+	"homepage": "https://github.com/mrpjevans/playbackos#readme",
+	"devDependencies": {
+		"@types/node": "^20.11.5",
+		"@typescript-eslint/eslint-plugin": "^6.17.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"prettier": "^3.2.4",
+		"nodemon": "^3.0.3"
+	},
+	"dependencies": {
+		"@fastify/formbody": "^7.4.0",
+		"@fastify/static": "^6.12.0",
+		"@fastify/view": "^8.2.0",
+		"ejs": "^3.1.9",
+		"fastify": "^4.25.2",
+		"pino": "^8.17.2",
+		"pino-pretty": "^10.3.1",
+		"typescript": "^5.3.3"
+	}
+}
