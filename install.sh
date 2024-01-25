@@ -27,8 +27,8 @@ vlc = cvlc $HOME/playbackos/playlists/boot.m3u
 EOF
 
 # Set up desktop
-mkdir -p $HOME/pcmanfm/LXDE-pi
-cp $HOME/playbackos_repo/assets/desktop-items-0.conf $HOME/pcmanfm/LXDE-pi/
+mkdir -p $HOME/.config/pcmanfm/LXDE-pi
+cp $HOME/playbackos_repo/assets/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
 
 # Set login to auto/desktop
 sudo systemctl --quiet set-default graphical.target
