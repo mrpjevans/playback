@@ -3,10 +3,10 @@
 	"version": "1.0.0",
 	"description": "Remote control web interface for PlaybackOS",
 	"scripts": {
-		"local": "nodemon src/server.ts --watch",
+		"dev": "nodemon src/server.ts --watch",
 		"lint": "eslint --ext .js,.ts .",
 		"format": "prettier --write \"src/**/*.ts\"",
-		"build": "rm -rf ./dist && npm run lint && npm run format && tsc && cp -r ./src/web/static ./dist/web/ && cp -r ./src/web/templates ./dist/web/",
+		"build": "rm -rf ./dist && npm run lint && npm run format && tsc && cp -r ./src/static ./dist/ && cp -r ./src/templates ./dist/",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -29,8 +29,8 @@
 		"@typescript-eslint/eslint-plugin": "^6.17.0",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
-		"prettier": "^3.2.4",
-		"nodemon": "^3.0.3"
+		"nodemon": "^3.0.3",
+		"prettier": "^3.2.4"
 	},
 	"dependencies": {
 		"@fastify/formbody": "^7.4.0",
