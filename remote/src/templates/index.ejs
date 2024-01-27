@@ -1,12 +1,45 @@
-<div class="row">
-	<div class="col-12">
-		<h1>Hello world!</h1>
-	</div>	
+<div class="grid-container">
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/rewind') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/play') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/forward') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/volume_down') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/volume_mute') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/volume_up') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/list') %>
+		</button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary"></button>
+	</div>
+	<div class="grid-item d-grid gap-2">
+		<button class="btn btn-outline-primary">
+			<%- include('icons/power') %>
+		</button>
+	</div>
 </div>
-
-<script>
-	function showWaiting() {
-		document.getElementById("busy").style.display = "block";
-		document.getElementById("cta").setAttribute("disabled", "true");
-	}
-</script>

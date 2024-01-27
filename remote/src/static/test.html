@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>3x3 Grid Layout</title>
+		<style>
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			.header,
+			.footer {
+				background-color: #ddd;
+				text-align: center;
+				padding: 1rem;
+				height: 10vh; /* Header and footer each take 10% of the screen height */
+			}
+			.grid-container {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(3, 1fr);
+				height: 80vh; /* The grid takes the remaining 80% of the screen height */
+			}
+			.grid-item {
+				padding: 20px;
+				border: 1px solid #ccc;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">Header Content</div>
+
+		<div class="grid-container">
+			<div class="grid-item">1</div>
+			<div class="grid-item">2</div>
+			<div class="grid-item">3</div>
+			<div class="grid-item">4</div>
+			<div class="grid-item">5</div>
+			<div class="grid-item">6</div>
+			<div class="grid-item">7</div>
+			<div class="grid-item">8</div>
+			<div class="grid-item">9</div>
+		</div>
+
+		<div class="footer">Footer Content</div>
+	</body>
+</html>
