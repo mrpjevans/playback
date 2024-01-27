@@ -3908,7 +3908,7 @@ sout-x264-tune=film
 #lua-config=
 
 # Password (string)
-#http-password=
+http-password=playback
 
 # Source directory (string)
 #http-src=
@@ -4489,7 +4489,7 @@ one-instance=1
 #intf=
 
 # Extra interface modules (string)
-#extraintf=
+extraintf=http
 
 # Control interfaces (string)
 #control=
