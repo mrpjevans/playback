@@ -4,7 +4,7 @@ WAYFIRE_FILE="$HOME/.config/wayfire.ini"
 
 # Updates & Depedencies
 sudo apt -y update && sudo apt -y upgrade
-sudo apt -y install git vlc
+sudo apt -y install git vlc nodejs npm
 
 # Repo checkout
 rm -rf $HOME/playbackos_repo
@@ -16,9 +16,9 @@ cp $HOME/playbackos_repo/assets/vlcrc $HOME/.config/vlc/
 
 # Directory setup
 rm -rf $HOME/playbackos
-mkdir -p $HOME/playbackos/videos $HOME/playbackos/playlists
-cp $HOME/playbackos_repo/assets/playback_os_ident_1.mp4 $HOME/playbackos/videos/
-echo ../videos/playback_os_ident_1.mp4 > $HOME/playbackos/playlists/boot.m3u
+mkdir -p $HOME/playbackos/media
+cp $HOME/playbackos_repo/assets/playback_os_ident_1.mp4 $HOME/playbackos/media/
+echo playback_os_ident_1.mp4 > $HOME/playbackos/media/boot.m3u
 
 # Autostart
 cat >> $WAYFIRE_FILE << EOF

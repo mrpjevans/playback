@@ -1,0 +1,14 @@
+<ul>
+<% for (item of items) { %>
+	<li><a href="#" onClick="setPlaylist('<%= config.mediaDir %>/<%= item %>')"><%= item %></a></li>
+<% } %>
+</ul>
+
+<a href="/">Back</a>
+
+<script>
+	function setPlaylist(file) {
+		vlcCommand('pl_empty');
+		vlcCommand('in_play', `input=file://${file}`);
+	}
+</script>

@@ -8,8 +8,23 @@
 		<title><%= config.name %></title>
 	</head>
 	<body class="h-100">
-		<div class="header">Playback.OS 192.168.1.23</div>
+		<div class="header">Playback.OS</div>
 		<%- body %>
-		<div class="footer">Not playing</div>
+		<div class="footer">Ready</div>
+
+		<script>
+			function vlcCommand(command, arg = "") {
+				let fullCommand = `?command=${command}`;
+				if (arg !== "") fullCommand += `&${arg}`;
+				fetch(`<%= config.vlcURL %>${fullCommand}`, {
+					headers: {
+						Authorization: `Basic ${btoa(":playback")}`,
+					},
+					mode: "no-cors",
+					credentials: "include",
+				});
+			}
+		</script>
+
 	</body>
 </html>
