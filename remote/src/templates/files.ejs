@@ -1,6 +1,13 @@
 <ul>
 <% for (item of items) { %>
-	<li><a href="#" onClick="setPlaylist('<%= config.mediaDir %>/<%= item %>')"><%= item %></a></li>
+	<% if (item.isDirectory) { %>
+		<li><a href="/files?path=<%= item.path %>"><%= item.name %></a> F</li>
+	<% } else { %>
+		<li><a href="#" onClick="setPlaylist('<%= config.mediaDir %>/<%= item.name %>')"><%= item.name %></a></li>
+	<% } %>
+<% } %>
+<% if (path!==root) { %>
+	<li><a href="/files?path=<%= back %>">..</a></li>
 <% } %>
 </ul>
 

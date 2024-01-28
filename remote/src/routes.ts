@@ -6,9 +6,27 @@ export async function routes(fastify, _options) {
 	fastify.get("/", async (_request, reply) => {
 		return reply.view("index");
 	});
-	fastify.get("/files", async (_request, reply) => {
-		const allItems = fs.readdirSync(config.mediaDir);
-    const items = allItems.filter((item) => !item.startsWith('.'));
-		return reply.view("files", { items });
+	fastify.get("/files", async (request, reply) => {
+		const root:string= config.mediaDir;
+		let path:string = root;
+		let partial = "";
+		if (request.query.path) {
+			if ((request.query.path as String).includes("..")) {
+				throw new Error("Invalid path");
+			}
+			path += request.query.path;
+			partial = path.substring(root.length);
+		}
+		const allItems = fs.readdirSync(path);
+    const items = allItems.sort().filter((item) => !item.startsWith('.')).map(item => {
+			const stat = fs.statSync(`${path}/${item}`);
+			return {
+				name: item,
+				path: `${partial}/${item}`,
+				isDirectory: stat.isDirectory()
+			};
+		});
+		const back = partial !== "" ? partial.split("/").slice(0,-1).join("/") : false;
+		return reply.view("files", { items, path, partial, root, back });
 	});
 }
