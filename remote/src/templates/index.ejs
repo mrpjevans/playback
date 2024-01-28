@@ -5,7 +5,7 @@
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button class="btn btn-outline-primary" onClick="vlc()">
 			<%- include('icons/play') %>
 		</button>
 	</div>
@@ -43,3 +43,15 @@
 		</button>
 	</div>
 </div>
+
+<script>
+	function vlc() {
+		fetch(`<%= config.vlcURL %>?command=pl_pause`, {
+			headers: {
+				Authorization: `Basic ${btoa(":playback")}`,
+			},
+			mode: "no-cors",
+			credentials: "include",
+		});
+	}
+</script>

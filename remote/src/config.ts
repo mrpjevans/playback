@@ -5,6 +5,7 @@ const defaults = {
 	logPretty: true,
 	port: 3000,
 	name: "PlaybackOS",
+	vlcURL: "http://192.168.1.122:8080/requests/status.xml",
 };
 
 const envFile = `${__dirname}/../env.json`;
