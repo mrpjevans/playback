@@ -7,7 +7,7 @@ export async function routes(fastify, _options) {
 		return reply.view("index");
 	});
 	fastify.get("/files", async (request, reply) => {
-		const root:string= config.mediaDir;
+		const root:string = config.mediaDir;
 		let path:string = root;
 		let partial = "";
 		if (request.query.path) {
@@ -15,14 +15,15 @@ export async function routes(fastify, _options) {
 				throw new Error("Invalid path");
 			}
 			path += request.query.path;
-			partial = path.substring(root.length);
+			partial = request.query.path;
 		}
 		const allItems = fs.readdirSync(path);
     const items = allItems.sort().filter((item) => !item.startsWith('.')).map(item => {
 			const stat = fs.statSync(`${path}/${item}`);
 			return {
 				name: item,
-				path: `${partial}/${item}`,
+				relPath: `${partial}/${item}`,
+				absPath: `${path}/${item}`,
 				isDirectory: stat.isDirectory()
 			};
 		});

@@ -1,17 +1,20 @@
-<ul>
+<div class="container">
+<ul class="list-group">
+<% if (path!==root) { %>
+	<li class="list-group-item"><a href="/files?path=<%= back %>">..</a></li>
+<% } %>
 <% for (item of items) { %>
 	<% if (item.isDirectory) { %>
-		<li><a href="/files?path=<%= item.path %>"><%= item.name %></a> F</li>
+		<li class="list-group-item"><a href="/files?path=<%= item.relPath %>"><%= item.name %></a> F</li>
 	<% } else { %>
-		<li><a href="#" onClick="setPlaylist('<%= config.mediaDir %>/<%= item.name %>')"><%= item.name %></a></li>
+		<li class="list-group-item"><a href="#" onClick="setPlaylist('<%= item.absPath %>')"><%= item.name %></a></li>
 	<% } %>
 <% } %>
-<% if (path!==root) { %>
-	<li><a href="/files?path=<%= back %>">..</a></li>
-<% } %>
 </ul>
-
 <a href="/">Back</a>
+</div>
+
+
 
 <script>
 	function setPlaylist(file) {

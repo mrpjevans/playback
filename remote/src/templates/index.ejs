@@ -1,44 +1,44 @@
 <div class="grid-container">
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('pl_previous')">
 			<%- include('icons/rewind') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary" onClick="vlcCommand('pl_pause')">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('pl_pause')">
 			<%- include('icons/play') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('pl_next')">
 			<%- include('icons/forward') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('volume', 'val=-10%')">
 			<%- include('icons/volume_down') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('volume', 'val=0')">
 			<%- include('icons/volume_mute') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('volume', 'val=+10%')">
 			<%- include('icons/volume_up') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary" onClick="window.location = '/files'">
+		<button type="button"<button class="btn btn-outline-primary" onClick="window.location = '/files'">
 			<%- include('icons/list') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary"></button>
+		<button type="button"<button class="btn btn-outline-primary"></button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary">
+		<button type="button"<button class="btn btn-outline-primary">
 			<%- include('icons/power') %>
 		</button>
 	</div>
