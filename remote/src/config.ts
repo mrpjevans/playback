@@ -5,7 +5,7 @@ const defaults = {
 	logPretty: true,
 	port: 3000,
 	name: "PlaybackOS",
-	vlcURL: "http://playback.local:8080/requests/status.xml",
+	vlcURL: "http://127.0.0.1:8080/requests/status.xml",
 	mediaDir: `${__dirname}/../../media`
 };
 

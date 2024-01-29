@@ -13,15 +13,21 @@
 		<div class="footer">Ready</div>
 
 		<script>
-			function vlcCommand(command, arg = "") {
-				let fullCommand = `?command=${command}`;
-				if (arg !== "") fullCommand += `&${arg}`;
-				fetch(`<%= config.vlcURL %>${fullCommand}`, {
-					headers: {
-						Authorization: `Basic ${btoa(":playback")}`,
-					},
-					mode: "no-cors",
-					credentials: "include",
+			// window.onload = () => {
+			// 	setInterval(() => {
+			// 		vlcStatus();
+			// 	}, 5000)
+			// };
+
+			async function vlcStatus() {
+				console.log(await vlcCommand());
+			}
+
+			async function vlcCommand(command, payload = {}) {
+				return await fetch("/vlc", {
+					method: "POST",
+					"Content-Type": "application/json",
+					body: JSON.stringify({ command, ...payload})
 				});
 			}
 		</script>
