@@ -32,17 +32,9 @@ export async function routes(fastify, _options) {
 		return reply.view("files", { items, path, partial, root, back });
 	});
 
-	fastify.post("/vlc", async (request, reply) => {
-		let fullURL = "http://127.0.0.1:8080/requests/status.xml";
+	fastify.get("/vlc", async (request, reply) => {
+		const fullURL = config.vlcURL + request.url.substring(4);
 
-		let params = [];
-
-		const payload = JSON.parse(request.body);
-		Object.entries(payload).forEach(([key, value]) => {
-			params.push(`${key}=${encodeURIComponent(value as string)}`);
-		});
-		fullURL += '?' + params.join("&");
-		
 		try {
 			console.log(fullURL)
 			const response = await fetch(fullURL, {
@@ -57,7 +49,7 @@ export async function routes(fastify, _options) {
 			return await response.text();
 		} catch(err) {
 			console.log('ERROR')
-			console.log(err);		
+			console.log(err.message);
 		}
 
 	});

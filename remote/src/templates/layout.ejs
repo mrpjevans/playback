@@ -23,12 +23,9 @@
 				console.log(await vlcCommand());
 			}
 
-			async function vlcCommand(command, payload = {}) {
-				return await fetch("/vlc", {
-					method: "POST",
-					"Content-Type": "application/json",
-					body: JSON.stringify({ command, ...payload})
-				});
+			async function vlcCommand(command = "") {
+				const url = command === "" ? "/vlc" : `/vlc?command=${command}`;
+				return await fetch(url)
 			}
 		</script>
 
