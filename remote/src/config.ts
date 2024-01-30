@@ -6,7 +6,7 @@ const defaults = {
 	port: 3000,
 	name: "PlaybackOS",
 	vlcURL: "http://127.0.0.1:8080/requests",
-	mediaDir: `${__dirname}/../../media`
+	mediaDir: `${__dirname}/../../media`,
 };
 
 const envFile = `${__dirname}/../../env.json`;

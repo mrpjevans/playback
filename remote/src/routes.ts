@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import { parseStringPromise } from 'xml2js';
+import * as fs from "fs";
+import { parseStringPromise } from "xml2js";
 
-import { config } from './config';
+import { config } from "./config";
 
 export async function routes(fastify, _options) {
 	fastify.get("/", async (_request, reply) => {
@@ -9,31 +9,35 @@ export async function routes(fastify, _options) {
 	});
 
 	fastify.get("/files", async (request, reply) => {
-		const root:string = config.mediaDir;
-		let path:string = root;
+		const root: string = config.mediaDir;
+		let path: string = root;
 		let partial = "";
 		if (request.query.path) {
-			if ((request.query.path as String).includes("..")) {
+			if ((request.query.path as string).includes("..")) {
 				throw new Error("Invalid path");
 			}
 			path += request.query.path;
 			partial = request.query.path;
 		}
 		const allItems = fs.readdirSync(path);
-    const items = allItems.sort().filter((item) => !item.startsWith('.')).map(item => {
-			const stat = fs.statSync(`${path}/${item}`);
-			return {
-				name: item,
-				relPath: `${partial}/${item}`,
-				absPath: `${path}/${item}`,
-				isDirectory: stat.isDirectory()
-			};
-		});
-		const back = partial !== "" ? partial.split("/").slice(0,-1).join("/") : false;
+		const items = allItems
+			.sort()
+			.filter((item) => !item.startsWith("."))
+			.map((item) => {
+				const stat = fs.statSync(`${path}/${item}`);
+				return {
+					name: item,
+					relPath: `${partial}/${item}`,
+					absPath: `${path}/${item}`,
+					isDirectory: stat.isDirectory(),
+				};
+			});
+		const back =
+			partial !== "" ? partial.split("/").slice(0, -1).join("/") : false;
 		return reply.view("files", { items, path, partial, root, back });
 	});
 
-	fastify.get("/vlc", async (request, _reply) => {
+	fastify.get("/vlc", async (request, reply) => {
 		const fullURL = `${config.vlcURL}/status.xml${request.url.substring(4)}`;
 
 		try {
@@ -41,14 +45,14 @@ export async function routes(fastify, _options) {
 				headers: {
 					Authorization: `Basic ${btoa(":playback")}`,
 				},
-			})
+			});
 
-			return await parseStringPromise(await response.text(), {explicitArray: false});
-
-		} catch(err) {
-			console.log('ERROR')
-			console.log(err.message);
+			return await parseStringPromise(await response.text(), {
+				explicitArray: false,
+			});
+		} catch (err) {
+			reply.status(500);
+			return err.message;
 		}
-
 	});
 }
