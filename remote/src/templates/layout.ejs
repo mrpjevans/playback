@@ -60,7 +60,7 @@
 				}
 			}
 			 if(lastStatus.information) {
-				document.getElementById('currentFile').innerHTML = status.information.category[0].info[2]._;
+				document.getElementById('currentFile').innerHTML = status.information.category[0].info[0]._.split("/").slice(-1);
 			 }
 
 			lastStatus = status;
