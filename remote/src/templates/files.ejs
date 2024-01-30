@@ -13,12 +13,3 @@
 </ul>
 <a href="/">Back</a>
 </div>
-
-
-
-<script>
-	function setPlaylist(file) {
-		vlcCommand('pl_empty');
-		vlcCommand(`in_play&input=file://${file}`);
-	}
-</script>
