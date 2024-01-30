@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { parseStringPromise } from 'xml2js';
 
 import { config } from './config';
 
@@ -32,21 +33,18 @@ export async function routes(fastify, _options) {
 		return reply.view("files", { items, path, partial, root, back });
 	});
 
-	fastify.get("/vlc", async (request, reply) => {
-		const fullURL = config.vlcURL + request.url.substring(4);
+	fastify.get("/vlc", async (request, _reply) => {
+		const fullURL = `${config.vlcURL}/status.xml${request.url.substring(4)}`;
 
 		try {
-			console.log(fullURL)
 			const response = await fetch(fullURL, {
 				headers: {
 					Authorization: `Basic ${btoa(":playback")}`,
 				},
-				credentials: "include",
 			})
-			reply.headers({
-				"Content-type": "text/xml"
-			})
-			return await response.text();
+
+			return await parseStringPromise(await response.text(), {explicitArray: false});
+
 		} catch(err) {
 			console.log('ERROR')
 			console.log(err.message);
