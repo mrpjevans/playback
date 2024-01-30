@@ -8,25 +8,74 @@
 		<title><%= config.name %></title>
 	</head>
 	<body class="h-100">
-		<div class="header">Playback.OS</div>
+		<div class="header" id="header">Playback.OS</div>
 		<%- body %>
-		<div class="footer">Ready</div>
+		<div class="footer" id="footer">
+			<span id="playStatus"></span>
+			-
+			<span id="volumeStatus"></span>
+		</div>
 
 		<script>
-			// window.onload = () => {
-			// 	setInterval(() => {
-			// 		vlcStatus();
-			// 	}, 5000)
-			// };
+		let lastStatus = {};
+		let lastVolume = 0;
 
-			async function vlcStatus() {
-				console.log(await vlcCommand());
+		window.onload = () => {
+			vlcStatus();
+		setInterval(() => {
+			vlcStatus();
+		}, 1000)
+		};
+
+		async function vlcCommand(command = "") {
+			const url = command === "" ? "/vlc" : `/vlc?command=${command}`;
+			return (await fetch(url)).json();
+		}
+
+		async function vlcStatus() {
+			const status = (await vlcCommand()).root;
+
+			if (status.volume != lastStatus.volume) {
+				document.getElementById('volumeStatus').innerHTML = status.volume;
+				if (status.volume === "0") {
+					document.getElementById('volume_off').classList.remove('d-none');
+					document.getElementById('volume_mute').classList.add('d-none');
+				} else {
+					document.getElementById('volume_mute').classList.remove('d-none');
+					document.getElementById('volume_off').classList.add('d-none');
+				}
 			}
 
-			async function vlcCommand(command = "") {
-				const url = command === "" ? "/vlc" : `/vlc?command=${command}`;
-				return await fetch(url)
+			if (status.state !== lastStatus.state) {
+				if (status.state === 'playing') {
+					document.getElementById('pause').classList.remove('d-none');
+					document.getElementById('play').classList.add('d-none');
+					document.getElementById('playStatus').innerHTML = "Playing";
+				} else {
+					document.getElementById('play').classList.remove('d-none');
+					document.getElementById('pause').classList.add('d-none');
+					document.getElementById('playStatus').innerHTML = "Paused";
+				}
 			}
+
+			lastStatus = status;
+		}
+
+		
+		function vlcRemoteCommand(command) {
+			vlcCommand(command);
+			vlcStatus();
+		}
+
+		function muteToggle() {
+			if (lastStatus.volume === "0") {
+				vlcCommand(`volume&val=${lastVolume}`);
+			} else {
+				lastVolume = lastStatus.volume;
+				vlcCommand('volume&val=0');
+			}
+			vlcStatus()
+		}
 		</script>
 
 	</body>

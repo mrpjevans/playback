@@ -1,31 +1,41 @@
 <div class="grid-container">
 	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('pl_previous')">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcRemoteCommand('pl_previous')">
 			<%- include('icons/rewind') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('pl_pause')">
-			<%- include('icons/play') %>
+		<button type="button" class="btn btn-outline-primary" onClick="vlcRemoteCommand('pl_pause')">
+			<div id="play" class="d-none">
+				<%- include('icons/play') %>
+			</div>
+			<div id="pause" class="d-none">
+				<%- include('icons/pause') %>
+			</div>	
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('pl_next')">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcRemoteCommand('pl_next')">
 			<%- include('icons/forward') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('volume&val=-20')">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcRemoteCommand('volume&val=-20')">
 			<%- include('icons/volume_down') %>
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('volume&val=0')">
-			<%- include('icons/volume_mute') %>
+		<button type="button" class="btn btn-outline-primary" onClick="muteToggle()">
+			<div id="volume_mute" class="d-none">
+				<%- include('icons/volume_mute') %>
+			</div>
+			<div id="volume_off" class="d-none">
+				<%- include('icons/volume_off') %>
+			</div>	
 		</button>
 	</div>
 	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcCommand('volume&val=+20')">
+		<button type="button" class="btn btn-outline-primary" onClick="vlcRemoteCommand('volume&val=+20')">
 			<%- include('icons/volume_up') %>
 		</button>
 	</div>
@@ -43,3 +53,9 @@
 		</button>
 	</div>
 </div>
+
+<script>
+
+
+
+</script>
