@@ -11,6 +11,8 @@
 		<div class="header" id="header">Playback.OS</div>
 		<%- body %>
 		<div class="footer" id="footer">
+			<span id="currentFile"></span>
+			-
 			<span id="playStatus"></span>
 			-
 			<span id="volumeStatus"></span>
@@ -57,6 +59,9 @@
 					document.getElementById('playStatus').innerHTML = "Paused";
 				}
 			}
+			 if(lastStatus.information) {
+				document.getElementById('currentFile').innerHTML = status.information.category[0].info[2]._;
+			 }
 
 			lastStatus = status;
 		}
