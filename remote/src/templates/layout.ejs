@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="h-100" data-bs-theme="dark">
+<html class="h-100">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,15 +7,18 @@
 		<link href="/static/css/playback.css" rel="stylesheet" />
 		<title><%= config.name %></title>
 	</head>
-	<body class="h-100">
-		<div class="header" id="header">Playback.OS</div>
-		<%- body %>
-		<div class="footer" id="footer">
-			<span id="currentFile"></span>
-			-
-			<span id="playStatus"></span>
-			-
-			<span id="volumeStatus"></span>
+	<body data-bs-theme="dark" class="h-100">
+		<div class="container-fluid h-100">
+			<div class="row" style="height: 10%">
+				<div class="text-center" id="header">
+					<span id="currentFile"></span>
+					-
+					<span id="playStatus"></span>
+					-
+					<span id="volumeStatus"></span>
+				</div>
+			</div>
+			<%- body %>
 		</div>
 
 		<script src="/static/js/playbackos.js"></script>

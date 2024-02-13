@@ -1,86 +1,118 @@
-<div class="grid-container">
-	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcStatus('pl_previous')">
+<div class="row" style="height: 30%">
+	<div class="col-4 h-100 p-2">
+		<button
+			type="button"
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="vlcStatus('pl_previous')"
+		>
 			<%- include('icons/rewind') %>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcStatus('pl_pause')">
-			<div id="play" class="d-none">
-				<%- include('icons/play') %>
-			</div>
-			<div id="pause" class="d-none">
-				<%- include('icons/pause') %>
-			</div>	
+
+	<div class="col-4 h-100 p-2">
+		<button
+			type="button"
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="vlcStatus('pl_pause')"
+		>
+			<div id="play" class="d-none"><%- include('icons/play') %></div>
+			<div id="pause" class="d-none"><%- include('icons/pause') %></div>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcStatus('pl_next')">
+
+	<div class="col-4 h-100 p-2">
+		<button
+			type="button"
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="vlcStatus('pl_next')"
+		>
 			<%- include('icons/forward') %>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcStatus('volume&val=-20')">
+</div>
+
+<div class="row" style="height: 30%">
+	<div class="col-4 h-100 p-2">
+		<button
+			type="button"
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="vlcStatus('volume&val=-20')"
+		>
 			<%- include('icons/volume_down') %>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="muteToggle()">
+
+	<div class="col-4 h-100 p-2">
+		<button
+			type="button"
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="muteToggle()"
+		>
 			<div id="volume_mute" class="d-none">
 				<%- include('icons/volume_mute') %>
 			</div>
 			<div id="volume_off" class="d-none">
 				<%- include('icons/volume_off') %>
-			</div>	
+			</div>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button" class="btn btn-outline-primary" onClick="vlcStatus('volume&val=+20')">
+
+	<div class="col-4 h-100 p-2">
+		<button
+			type="button"
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="vlcStatus('volume&val=+20')"
+		>
 			<%- include('icons/volume_up') %>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button class="btn btn-outline-primary" onClick="window.location = '/files'">
+</div>
+
+<div class="row" style="height: 30%">
+	<div class="col-4 h-100 p-2">
+		<button
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="window.location = '/files'"
+		>
 			<%- include('icons/list') %>
 		</button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button"<button class="btn btn-outline-primary"></button>
+
+	<div class="col-4 h-100 p-2">
+		<button class="btn btn-outline-primary h-100 w-100"></button>
 	</div>
-	<div class="grid-item d-grid gap-2">
-		<button type="button"<button class="btn btn-outline-primary">
+
+	<div class="col-4 h-100 p-2">
+		<button class="btn btn-outline-primary h-100 w-100">
 			<%- include('icons/power') %>
 		</button>
 	</div>
 </div>
 
 <script>
-document.addEventListener('vlc_status', (event)=> {
-	const status = event.detail;
-	
-	if (status.volume != lastStatus.volume) {
-		if (status.volume === "0") {
-			document.getElementById('volume_off').classList.remove('d-none');
-			document.getElementById('volume_mute').classList.add('d-none');
-		} else {
-			document.getElementById('volume_mute').classList.remove('d-none');
-			document.getElementById('volume_off').classList.add('d-none');
+	document.addEventListener("vlc_status", (event) => {
+		const status = event.detail;
+
+		if (status.volume != lastStatus.volume) {
+			if (status.volume === "0") {
+				document.getElementById("volume_off").classList.remove("d-none");
+				document.getElementById("volume_mute").classList.add("d-none");
+			} else {
+				document.getElementById("volume_mute").classList.remove("d-none");
+				document.getElementById("volume_off").classList.add("d-none");
+			}
 		}
-	}
 
-	if (status.state !== lastStatus.state) {
-		if (status.state === 'playing') {
-			document.getElementById('pause').classList.remove('d-none');
-			document.getElementById('play').classList.add('d-none');
-			document.getElementById('playStatus').innerHTML = "Playing";
-		} else {
-			document.getElementById('play').classList.remove('d-none');
-			document.getElementById('pause').classList.add('d-none');
-			document.getElementById('playStatus').innerHTML = "Paused";
+		if (status.state !== lastStatus.state) {
+			if (status.state === "playing") {
+				document.getElementById("pause").classList.remove("d-none");
+				document.getElementById("play").classList.add("d-none");
+				document.getElementById("playStatus").innerHTML = "Playing";
+			} else {
+				document.getElementById("play").classList.remove("d-none");
+				document.getElementById("pause").classList.add("d-none");
+				document.getElementById("playStatus").innerHTML = "Paused";
+			}
 		}
-	}
-	
-});
-
-
+	});
 </script>
