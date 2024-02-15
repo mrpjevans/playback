@@ -1,0 +1,25 @@
+#header {
+	font-size: 4vw
+}
+
+.file-icon {
+	cursor: pointer;
+}
+
+.file-icon svg {
+	margin-right: 1vw;
+}
+
+a {
+	text-decoration: none;
+}
+
+.home-link svg {
+	width: auto;
+	height: 3vh;
+	margin-right: 1vw;
+}
+
+.path {
+	font-size: 3vw;
+}

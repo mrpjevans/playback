@@ -1,15 +1,33 @@
 <div class="container">
-<ul class="list-group">
-<% if (path!==root) { %>
-	<li class="list-group-item"><a href="/files?path=<%= back %>">..</a></li>
-<% } %>
-<% for (item of items) { %>
-	<% if (item.isDirectory) { %>
-		<li class="list-group-item"><a href="/files?path=<%= item.relPath %>"><%= item.name %></a> F</li>
-	<% } else { %>
-		<li class="list-group-item"><a href="#" onClick="setPlaylist('<%= item.absPath %>')"><%= item.name %></a></li>
-	<% } %>
-<% } %>
-</ul>
-<a href="/">Back</a>
+
+	<div class="path text-center mb-2">
+		<% if (partial === '') { %>
+			/
+		<% } else { %>
+			<%= partial %>
+		<% } %>
+		</div>
+
+	<ul class="list-group">
+
+		<% if (path!==root) { %>
+			<li class="list-group-item file-icon"  onclick="window.location = '/files?path=<%= back %>'"><%- include('icons/up') %> Back</li>
+		<% } %>
+
+		<% for (item of items) { %>
+
+			<% if (item.isDirectory) { %>
+				<li class="list-group-item file-icon" onclick="window.location = '/files?path=<%= item.relPath %>'"><%- include('icons/directory') %> <%= item.name %></li>
+			<% } else { %>
+				<li class="list-group-item file-icon"  onclick="window.location = 'setPlaylist('<%= item.absPath %>')'"><%- include('icons/file') %> <%= item.name %></li>
+			<% } %>
+			
+		<% } %>
+
+	</ul>
+
+	<div class="m-2 home-link">
+		<a href="/"><%- include('icons/home') %> Home</a>
+	</div>
+
 </div>

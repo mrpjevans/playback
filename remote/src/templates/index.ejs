@@ -15,8 +15,8 @@
 			class="btn btn-outline-primary h-100 w-100"
 			onClick="vlcStatus('pl_pause')"
 		>
-			<div id="play" class="d-none"><%- include('icons/play') %></div>
-			<div id="pause" class="d-none"><%- include('icons/pause') %></div>
+			<span id="play" class="d-none"><%- include('icons/play') %></span>
+			<span id="pause" class="d-none"><%- include('icons/pause') %></span>
 		</button>
 	</div>
 
@@ -48,12 +48,12 @@
 			class="btn btn-outline-primary h-100 w-100"
 			onClick="muteToggle()"
 		>
-			<div id="volume_mute" class="d-none">
+			<span id="volume_mute" class="d-none">
 				<%- include('icons/volume_mute') %>
-			</div>
-			<div id="volume_off" class="d-none">
+			</span>
+			<span id="volume_off" class="d-none">
 				<%- include('icons/volume_off') %>
-			</div>
+			</span>
 		</button>
 	</div>
 
