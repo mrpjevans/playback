@@ -19,7 +19,7 @@
 			<% if (item.isDirectory) { %>
 				<li class="list-group-item file-icon" onclick="window.location = '/files?path=<%= item.relPath %>'"><%- include('icons/directory') %> <%= item.name %></li>
 			<% } else { %>
-				<li class="list-group-item file-icon"  onclick="window.location = 'setPlaylist('<%= item.absPath %>')'"><%- include('icons/file') %> <%= item.name %></li>
+				<li class="list-group-item file-icon"  onclick="confirmPlaylist('<%= item.absPath %>', '<%= item.name %>')"><%- include('icons/file') %> <%= item.name %></li>
 			<% } %>
 			
 		<% } %>
@@ -30,4 +30,26 @@
 		<a href="/"><%- include('icons/home') %> Home</a>
 	</div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirm-playlist-change" data-absfile="" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm playlist change</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-2" id="confirm-playlist-change-file"></div>
+				<div class="text-center mb-1 d-grid gap-2">
+					<button class="btn btn-outline-primary" onclick="setPlaylist(true)" data-bs-dismiss="modal">Play now</button>
+					<button class="btn btn-outline-primary" onclick="setPlaylist(false)" data-bs-dismiss="modal">Load and pause</button>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>

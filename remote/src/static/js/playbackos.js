@@ -21,8 +21,16 @@ async function vlcStatus(command = "") {
 	}
 
 	if (lastStatus.information) {
-		document.getElementById("currentFile").innerHTML =
-			status.information.category[0].info[0]._.split("/").slice(-1);
+		if (!status.information.category[0]) {
+			return;
+		}
+
+		const filename = status.information.category[0].info[0]
+			? status.information.category[0].info[0]._
+			: status.information.category[0].info._;
+		document.getElementById("currentFile").innerHTML = filename
+			.split("/")
+			.slice(-1);
 	}
 
 	if (status.state !== lastStatus.state) {
@@ -42,7 +50,25 @@ function muteToggle() {
 	}
 }
 
-function setPlaylist(file) {
-	vlcStatus("pl_empty");
-	vlcStatus(`in_play&input=file://${file}`);
+function confirmPlaylist(file, name) {
+	document
+		.getElementById("confirm-playlist-change")
+		.setAttribute("data-absfile", file);
+	document.getElementById("confirm-playlist-change-file").innerHTML = name;
+	new bootstrap.Modal("#confirm-playlist-change").show();
+}
+
+async function setPlaylist(startPlayback) {
+	const file = document
+		.getElementById("confirm-playlist-change")
+		.getAttribute("data-absfile");
+
+	await vlcStatus("pl_empty");
+	if (!startPlayback) {
+		await vlcStatus(`in_enqueue&input=file://${file}`);
+	} else {
+		await vlcStatus(`in_play&input=file://${file}`);
+	}
+
+	window.location = "/";
 }
