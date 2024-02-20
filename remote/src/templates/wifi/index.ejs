@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<p>
+				This service helps you get your headless Raspberry Pi on to a new wifi
+				network
+			</p>
+			<div class="alert alert-danger" role="alert">
+				Do not consider this to be secure. HTTP traffic is not encrypted.
+			</div>
+
+			<form method="get" action="ssids" onSubmit="showWaiting(this)">
+				<button id="cta" class="btn btn-primary">
+					Scan for nearby wifi networks
+				</button>
+			</form>
+
+			<div class="m-2 home-link">
+				<a href="/"><%- include('../icons/home') %> Home</a>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function showWaiting() {
+			document.getElementById("busy").style.display = "block";
+			document.getElementById("cta").setAttribute("disabled", "true");
+		}
+	</script>
+</div>

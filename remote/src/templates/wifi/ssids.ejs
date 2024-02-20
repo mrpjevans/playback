@@ -1,0 +1,84 @@
+<div class="container">
+<div class="row">
+	<div class="col-12">
+
+		<h2>Networks found</h2>
+
+		<form method="post" action="confirm" id="form" class="mt-4">
+			
+			<% if (networks.length > 0) { %>
+			<div id="networks">
+				<% for(const [index, network] of networks.entries()) { %>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="ssid" value="<%= network %>" id="<%= network %>" <% if (index === 0) { %>checked<% } %>>
+						<label class="form-check-label" for="<%= network %>">
+							<%= network %>
+						</label>
+					</div>
+				<% } %>
+			</div>
+			<% } else { %>
+			<div class="alert alert-danger" role="alert">
+				No networks detected
+			</div>
+			<% } %>
+			
+			<div class="mt-3">
+				<label for="password" class="form-label">Password</label>
+				<input type="password" class="form-control" id="password" placeholder="Access password for wifi network" name="password" onkeyup="enableNext()" />
+			</div>
+
+			<div class="mt-3">
+				<label for="hidden_ssid" class="form-label">Hidden access point? Enter the SSID here:</label>
+				<input type="text" class="form-control" id="hidden_ssid" placeholder="Name of hidden wifi network" name="hidden_ssid" onkeyup="enableSelection(); enableNext()" />
+			</div>
+
+			<div class="mt-3">
+				<button class="btn btn-primary" id="next" disabled>Next</button>
+				<a class="btn btn-secondary" href="ssids" id="rescan" onClick="showWaiting()">Rescan</a>
+			</div>
+			
+		</form>
+
+		<div class="m-2 home-link">
+			<a href="/"><%- include('../icons/home') %> Home</a>
+		</div>
+		
+	</div>
+
+</div>
+</div>
+
+<script>
+	function enableSelection() {
+		const networks = document.getElementById('networks');
+		const hidden_ssid = document.getElementById('hidden_ssid');
+		if (networks === null) {
+			return;
+		}
+		const elements = networks.getElementsByTagName('input');
+		for (var i = 0; i < elements.length; i++) {
+			if (hidden_ssid.value === '') {
+				elements[i].removeAttribute('disabled');
+			} else {
+				elements[i].setAttribute('disabled', 'true');
+			}	
+		}
+	}
+
+	function enableNext() {
+		const networks = document.getElementById('networks');
+		const password = document.getElementById('password');
+		if (password.value !== '' && (networks !== null || document.getElementById('hidden_ssid').value !== '') ) {
+			document.getElementById('next').removeAttribute('disabled');
+		} else {
+			document.getElementById('next').setAttribute('disabled', 'true');
+		}
+	}
+
+	function showWaiting() {
+		document.getElementById("busy").style.display = "block";
+		document.getElementById("rescan").setAttribute("disabled", "true");
+		document.getElementById("next").setAttribute("disabled", "true");
+	}
+</script>

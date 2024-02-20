@@ -79,13 +79,71 @@
 	</div>
 
 	<div class="col-4 h-100 p-2">
-		<button class="btn btn-outline-primary h-100 w-100"></button>
+		<button
+			class="btn btn-outline-primary h-100 w-100"
+			onClick="window.location = '/settings'"
+		>
+			<%- include('icons/settings') %>
+		</button>
 	</div>
 
 	<div class="col-4 h-100 p-2">
-		<button class="btn btn-outline-primary h-100 w-100">
+		<button
+			class="btn btn-outline-primary h-100 w-100"
+			data-bs-toggle="modal"
+			data-bs-target="#modal-power"
+		>
 			<%- include('icons/power') %>
 		</button>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal fade"
+	id="modal-power"
+	data-absfile=""
+	data-bs-backdrop="static"
+	data-bs-keyboard="false"
+	tabindex="-1"
+	aria-labelledby="staticBackdropLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="staticBackdropLabel">Power</h1>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center mb-1 d-grid gap-2">
+					<button
+						class="btn btn-outline-primary"
+						onclick=""
+						data-bs-dismiss="modal"
+					>
+						Reboot
+					</button>
+					<button
+						class="btn btn-outline-primary"
+						onclick=""
+						data-bs-dismiss="modal"
+					>
+						Shutdown
+					</button>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					Cancel
+				</button>
+			</div>
+		</div>
 	</div>
 </div>
 

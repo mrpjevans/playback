@@ -7,6 +7,14 @@ const defaults = {
 	name: "PlaybackOS",
 	vlcURL: "http://127.0.0.1:8080/requests",
 	mediaDir: `${__dirname}/../../media`,
+	wifi: {
+		wiredDevice: "eth0",
+		wifiDevice: "wlan0",
+		hotspotName: "playbackOS",
+		hotspotSSID: "playbackOS",
+		hotspotPassword: "playback",
+		dev: true,
+	},
 };
 
 const envFile = `${__dirname}/../../env.json`;

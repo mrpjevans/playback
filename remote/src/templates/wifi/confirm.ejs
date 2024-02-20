@@ -1,0 +1,50 @@
+<div class="container">
+<div class="row">
+	<div class="col-12">
+
+		<h2>Ready to connect</h2>
+
+		<% if (ssid === '' || password === '') { %>
+			<div class="alert alert-danger" role="alert">
+				No network and/or password specified
+			</div>
+		<% } %>
+		
+		<form
+			method="post"
+			action="connect"
+			id="form"
+			class="mt-3"
+			onSubmit="showWaiting()"
+		>
+			<input type="hidden" name="ssid" value="<%= ssid %>" />
+			<input type="hidden" name="password" value="<%= password %>" />
+
+			<p>A attempt will be made to connect to '<%= ssid %>'</p>
+
+			<button class="btn btn-primary" id="connect" <% if (ssid === '' || password === '') { %>disabled<% } %>>Connect</button>
+			<a
+				class="btn btn-secondary"
+				href="ssids"
+				id="back"
+				onClick="showWaiting()"
+				>Back</a
+			>
+		</form>
+
+		<div class="m-2 home-link">
+			<a href="/"><%- include('../icons/home') %> Home</a>
+		</div>
+		
+	</div>
+
+</div>
+</div>
+
+<script>
+	function showWaiting() {
+		document.getElementById("busy").style.display = "block";
+		document.getElementById("connect").setAttribute("disabled", "true");
+		document.getElementById("back").setAttribute("disabled", "true");
+	}
+</script>

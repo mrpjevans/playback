@@ -1,7 +1,13 @@
 import * as fs from "fs";
+
 import { parseStringPromise } from "xml2js";
 
 import { config } from "./config";
+import {
+	scanForWifiNetworksWithIw,
+	connectToWifi,
+	deleteConnection,
+} from "./lib/nmcli";
 
 export async function routes(fastify, _options) {
 	fastify.get("/", async (_request, reply) => {
@@ -54,5 +60,47 @@ export async function routes(fastify, _options) {
 			reply.status(500);
 			return err.message;
 		}
+	});
+
+	fastify.get("/settings", async (_request, reply) => {
+		return reply.view("settings");
+	});
+
+	fastify.get("/wifi/", async (_request, reply) => {
+		return reply.view("wifi/index");
+	});
+
+	fastify.get("/wifi/ssids", (_request, reply) => {
+		setTimeout(() => {
+			const networks = scanForWifiNetworksWithIw(config.wifi.wifiDevice);
+			return reply.view("wifi/ssids", { networks });
+		}, 2000);
+	});
+
+	fastify.post("/wifi/confirm", async (request, reply) => {
+		const ssid =
+			request.body.hidden_ssid !== ""
+				? request.body.hidden_ssid
+				: request.body.ssid;
+		return reply.view("wifi/confirm", {
+			ssid,
+			password: request.body.password,
+		});
+	});
+
+	fastify.post("/wifi/connect", async (request, reply) => {
+		if (config.wifi?.dev === true) return reply.view("wifi/connect");
+
+		try {
+			deleteConnection(request.body.ssid);
+		} catch (err) {}
+
+		try {
+			connectToWifi(request.body.ssid, request.body.password);
+		} catch (err) {
+			return reply.view("error", { message: err.message });
+		}
+
+		return reply.view("wifi/connect");
 	});
 }
