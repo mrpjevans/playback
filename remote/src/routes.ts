@@ -7,6 +7,7 @@ import {
 	scanForWifiNetworksWithIw,
 	connectToWifi,
 	deleteConnection,
+	getConnections,
 } from "./lib/nmcli";
 
 export async function routes(fastify, _options) {
@@ -67,7 +68,7 @@ export async function routes(fastify, _options) {
 	});
 
 	fastify.get("/wifi/", async (_request, reply) => {
-		return reply.view("wifi/index");
+		return reply.view("wifi/index", { connections: await getConnections() });
 	});
 
 	fastify.get("/wifi/ssids", (_request, reply) => {

@@ -7,16 +7,16 @@
 		<form method="post" action="confirm" id="form" class="mt-4">
 			
 			<% if (networks.length > 0) { %>
-			<div id="networks">
+				<ul class="list-group mb-4" id="networks">
 				<% for(const [index, network] of networks.entries()) { %>
-					<div class="form-check">
+					<li class="form-check list-group-item">
 						<input class="form-check-input" type="radio" name="ssid" value="<%= network %>" id="<%= network %>" <% if (index === 0) { %>checked<% } %>>
 						<label class="form-check-label" for="<%= network %>">
 							<%= network %>
 						</label>
-					</div>
+					</li>
 				<% } %>
-			</div>
+				</ul>
 			<% } else { %>
 			<div class="alert alert-danger" role="alert">
 				No networks detected
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="mt-3">
-				<label for="hidden_ssid" class="form-label">Hidden access point? Enter the SSID here:</label>
+				<label for="hidden_ssid" class="form-label">Hidden access point? Enter the SSID here</label>
 				<input type="text" class="form-control" id="hidden_ssid" placeholder="Name of hidden wifi network" name="hidden_ssid" onkeyup="enableSelection(); enableNext()" />
 			</div>
 

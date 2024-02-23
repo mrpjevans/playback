@@ -22,6 +22,10 @@
 
 			<p>A attempt will be made to connect to '<%= ssid %>'</p>
 
+			<div class="alert alert-warning">
+				If you are connected via the built-in hotspot, your connection will be terminated and you will not see a confirmation screen.
+			</div>
+
 			<button class="btn btn-primary" id="connect" <% if (ssid === '' || password === '') { %>disabled<% } %>>Connect</button>
 			<a
 				class="btn btn-secondary"
