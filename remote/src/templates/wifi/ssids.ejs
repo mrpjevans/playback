@@ -9,12 +9,14 @@
 			<% if (networks.length > 0) { %>
 				<ul class="list-group mb-4" id="networks">
 				<% for(const [index, network] of networks.entries()) { %>
-					<li class="form-check list-group-item">
-						<input class="form-check-input" type="radio" name="ssid" value="<%= network %>" id="<%= network %>" <% if (index === 0) { %>checked<% } %>>
-						<label class="form-check-label" for="<%= network %>">
-							<%= network %>
-						</label>
-					</li>
+					<div class="list-group-item">
+						<li class="form-check">
+							<input class="form-check-input" type="radio" name="ssid" value="<%= network %>" id="<%= network %>" <% if (index === 0) { %>checked<% } %>>
+							<label class="form-check-label" for="<%= network %>">
+								<%= network %>
+							</label>
+						</li>
+					</div>
 				<% } %>
 				</ul>
 			<% } else { %>
@@ -37,7 +39,10 @@
 				<%- include("../home") %>
 				<a class="btn btn-secondary" href="/wifi/">Back</a>
 				<button class="btn btn-primary" id="next" disabled>Next</button>
-				<a class="btn btn-warning" href="ssids" id="rescan" onClick="showWaiting()">Rescan</a>
+				<button type="button" class="btn btn-warning ms-2" id="rescan" onClick="doRescan()">Rescan</button>
+				<div id="busy" class="ms-3 spinner-border spinner-border-sm" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 			</div>
 			
 		</form>
@@ -74,9 +79,10 @@
 		}
 	}
 
-	function showWaiting() {
-		document.getElementById("busy").style.display = "block";
+	function doRescan() {
+		document.getElementById("busy").style.visibility = "visible";
 		document.getElementById("rescan").setAttribute("disabled", "true");
 		document.getElementById("next").setAttribute("disabled", "true");
+		location.reload();
 	}
 </script>

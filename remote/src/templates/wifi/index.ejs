@@ -42,6 +42,10 @@
 				<button id="cta" class="btn btn-primary">
 					Scan for nearby wifi networks
 				</button>
+
+				<div id="busy" class="ms-3 spinner-border spinner-border-sm" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 			</form>
 			
 		</div>
@@ -49,7 +53,7 @@
 
 	<script>
 		function showWaiting() {
-			document.getElementById("busy").style.display = "block";
+			document.getElementById("busy").style.visibility = "visible";
 			document.getElementById("cta").setAttribute("disabled", "true");
 		}
 	</script>
