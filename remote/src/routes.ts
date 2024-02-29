@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { execSync } from "child_process";
 
 import { parseStringPromise } from "xml2js";
 
@@ -66,6 +67,23 @@ export async function routes(fastify, _options) {
 	fastify.get("/settings", async (_request, reply) => {
 		return reply.view("settings");
 	});
+
+	//
+	// Power
+	//
+	fastify.get("/reboot", async (_request, reply) => {
+		execSync(`sudo reboot`);
+		reply.status(204);
+	});
+
+	fastify.get("/poweroff", async (_request, reply) => {
+		execSync(`sudo poweroff`);
+		reply.status(204);
+	});
+
+	//
+	// Wifi
+	//
 
 	fastify.get("/wifi/", async (_request, reply) => {
 		return reply.view("wifi/index", {
