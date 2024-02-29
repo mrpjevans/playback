@@ -26,7 +26,8 @@
 				If you are connected via the built-in hotspot, your connection will be terminated and you will not see a confirmation screen.
 			</div>
 
-			<button class="btn btn-primary" id="connect" <% if (ssid === '' || password === '') { %>disabled<% } %>>Connect</button>
+			<%- include("../home") %>
+			
 			<a
 				class="btn btn-secondary"
 				href="ssids"
@@ -34,12 +35,10 @@
 				onClick="showWaiting()"
 				>Back</a
 			>
+			<button class="btn btn-primary" id="connect" <% if (ssid === '' || password === '') { %>disabled<% } %>>Connect</button>
+
 		</form>
 
-		<div class="m-2 home-link">
-			<a href="/"><%- include('../icons/home') %> Home</a>
-		</div>
-		
 	</div>
 
 </div>

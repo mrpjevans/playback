@@ -1,11 +1,9 @@
 <div class="container">
-	<ul class="list-group">
+	<ul class="list-group mb-2">
 		<li class="list-group-item file-icon" onclick="window.location = '/wifi/'">
 			<%- include('icons/wifi') %> Wifi Settings
 		</li>
 	</ul>
 
-	<div class="m-2 home-link">
-		<a href="/"><%- include('icons/home') %> Home</a>
-	</div>
+	<%- include("home") %>
 </div>

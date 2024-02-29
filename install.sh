@@ -47,3 +47,11 @@ fi
 
 # Disable taskbar
 sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
+
+# Enable wifiwatch
+if cat /etc/crontab | grep $HOME/playbackos/wifi/wifiwatch.js; then
+    echo "Cron job already exists, skipping"
+else
+		echo "Creating cron job"
+    sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playbackos/wifi/wifiwatch.js > $HOME/playbackos/wifi/wifiwatch.log 2>&1' >> /etc/crontab"
+fi

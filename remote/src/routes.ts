@@ -68,7 +68,10 @@ export async function routes(fastify, _options) {
 	});
 
 	fastify.get("/wifi/", async (_request, reply) => {
-		return reply.view("wifi/index", { connections: await getConnections() });
+		return reply.view("wifi/index", {
+			connections: await getConnections(),
+			hotspotName: config.wifi.hotspotName,
+		});
 	});
 
 	fastify.get("/wifi/ssids", (_request, reply) => {

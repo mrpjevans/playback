@@ -34,16 +34,14 @@
 			</div>
 
 			<div class="mt-3">
+				<%- include("../home") %>
+				<a class="btn btn-secondary" href="/wifi/">Back</a>
 				<button class="btn btn-primary" id="next" disabled>Next</button>
-				<a class="btn btn-secondary" href="ssids" id="rescan" onClick="showWaiting()">Rescan</a>
+				<a class="btn btn-warning" href="ssids" id="rescan" onClick="showWaiting()">Rescan</a>
 			</div>
 			
 		</form>
 
-		<div class="m-2 home-link">
-			<a href="/"><%- include('../icons/home') %> Home</a>
-		</div>
-		
 	</div>
 
 </div>

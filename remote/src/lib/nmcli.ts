@@ -38,8 +38,8 @@ export type NmcliWifiConnection = {
 export function createWifiConnection(opts: NmcliWifiConnection) {
 	const output = execSync(
 		`sudo nmcli con add con-name ${opts.name} ifname ${opts.device} type wifi ssid "${opts.ssid}" && \
-		sudo nmcli con modify hotspot wifi-sec.key-mgmt wpa-psk && \
-		sudo nmcli con modify hotspot wifi-sec.psk ${opts.password}`,
+		sudo nmcli con modify ${opts.name} wifi-sec.key-mgmt wpa-psk && \
+		sudo nmcli con modify ${opts.name} wifi-sec.psk ${opts.password}`,
 	).toString();
 
 	if (!output.includes("successfully added")) {

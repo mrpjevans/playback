@@ -13,22 +13,37 @@
 					<% if (connection.name === 'lo') continue; %>
 					<li class="list-group-item">
 						<%= connection.name %>
+						
+						<% if (connection.type !== '') { %>
+							&nbsp;<span class="badge rounded-pill bg-warning text-dark"><%= connection.type.split("-").pop() %></span>
+							<% if (connection.name === hotspotName) { %>
+								&nbsp;<span class="badge rounded-pill bg-danger text-dark">hotspot</span>
+							<% } %>
+						<% } %>
+
 						<% if (connection.device !== '') { %>
-							&nbsp;<span class="badge rounded-pill bg-info text-dark">Active</span>
+							&nbsp;<span class="badge rounded-pill bg-info text-dark">active</span>
 						<% } %>
 					</li>
 				<% } %>
 			</ul>
 
+			<%- include("../home") %>
+	
 			<form method="get" action="ssids" onSubmit="showWaiting(this)">
+
+				<a
+				class="btn btn-secondary"
+				href="/settings"
+				id="back"
+				onClick="showWaiting()"
+				>Back</a>
+				
 				<button id="cta" class="btn btn-primary">
 					Scan for nearby wifi networks
 				</button>
 			</form>
-
-			<div class="m-2 home-link">
-				<a href="/"><%- include('../icons/home') %> Home</a>
-			</div>
+			
 		</div>
 	</div>
 
