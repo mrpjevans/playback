@@ -10,6 +10,13 @@ window.onload = () => {
 };
 
 async function vlcStatus(command = "") {
+	if (
+		(command.startsWith("volume&val=+") && lastStatus.volume === 500) ||
+		(command.startsWith("volume&val=-") && lastStatus.volume === 0)
+	) {
+		return;
+	}
+
 	const url = command === "" ? "/vlc" : `/vlc?command=${command}`;
 	const statusPayload = await (await fetch(url)).json();
 	const status = statusPayload.root;
@@ -17,7 +24,8 @@ async function vlcStatus(command = "") {
 	document.dispatchEvent(new CustomEvent("vlc_status", { detail: status }));
 
 	if (status.volume != lastStatus.volume) {
-		document.getElementById("volumeStatus").innerHTML = status.volume;
+		const volpc = (status.volume / 500) * 100;
+		document.getElementById("volumeStatus").innerHTML = volpc;
 	}
 
 	if (lastStatus.information) {
@@ -33,10 +41,10 @@ async function vlcStatus(command = "") {
 			.slice(-1);
 	}
 
-	if (status.state !== lastStatus.state) {
-		document.getElementById("playStatus").innerHTML =
-			status.state === "playing" ? "Playing" : "Paused";
-	}
+	const time = new Date(status.time * 1000).toISOString().slice(11, 19);
+	const length = new Date(status.length * 1000).toISOString().slice(11, 19);
+
+	document.getElementById("playStatus").innerHTML = `${time} / ${length}`;
 
 	lastStatus = status;
 }

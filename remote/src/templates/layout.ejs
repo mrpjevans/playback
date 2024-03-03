@@ -10,13 +10,27 @@
 	<body data-bs-theme="dark" class="h-100">
 		<div class="container-fluid h-100">
 			<header class="row" style="height: 10%">
-				<div class="col-8 d-flex align-items-center" id="header">
+				<div class="col-7 d-flex align-items-center" id="header">
 					<span id="currentFile"></span>
 				</div>
-				<div class="col-4 d-flex align-items-center justify-content-end">
-					<span id="playStatus"></span>
-					&nbsp;
-					<span id="volumeStatus"></span>
+				<div
+					class="col-5 d-flex align-items-center justify-content-end"
+					id="meta"
+				>
+					<div class="container text-info">
+						<div class="row text-end">
+							<div class="col-12 p-0">
+								<%- include('icons/play') %>
+								<span id="playStatus"></span>
+							</div>
+						</div>
+						<div class="row text-end p-0">
+							<div class="col-12 p-0">
+								<%- include('icons/volume_up') %>
+								<span id="volumeStatus"></span>%
+							</div>
+						</div>
+					</div>
 				</div>
 			</header>
 			<%- body %>

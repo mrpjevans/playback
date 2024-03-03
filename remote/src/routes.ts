@@ -71,6 +71,7 @@ export async function routes(fastify, _options) {
 	//
 	// Power
 	//
+
 	fastify.get("/reboot", async (_request, reply) => {
 		execSync(`sudo reboot`);
 		reply.status(204);
