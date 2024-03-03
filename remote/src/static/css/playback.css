@@ -38,3 +38,7 @@ a {
 #busy {
 	visibility: hidden;
 }
+
+#loop_enabled, #loop_disabled {
+	display:none;
+}

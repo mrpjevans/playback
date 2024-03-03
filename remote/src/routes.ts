@@ -64,7 +64,16 @@ export async function routes(fastify, _options) {
 		}
 	});
 
-	fastify.get("/settings", async (_request, reply) => {
+	//
+	// Settings
+	//
+	fastify.get("/settings", async (request, reply) => {
+		if (request.query.loop && ["0", "1"].includes(request.query.loop)) {
+			execSync(
+				`sed -i 's/loop=./loop=${request.query.loop}/g' $HOME/.config/vlc/vlcrc`,
+			);
+		}
+
 		return reply.view("settings");
 	});
 

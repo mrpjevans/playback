@@ -3,7 +3,38 @@
 		<li class="list-group-item file-icon" onclick="window.location = '/wifi/'">
 			<%- include('icons/wifi') %> Wifi Settings
 		</li>
+		<li
+			class="list-group-item file-icon"
+			onclick="window.location = '/settings'"
+			id="loop"
+		>
+			<%- include('icons/loop') %> Playback loop
+
+			<span class="badge rounded-pill bg-primary" id="loop_enabled"
+				>Enabled</span
+			>
+			<span class="badge rounded-pill bg-secondary" id="loop_disabled"
+				>Disabled</span
+			>
+		</li>
 	</ul>
 
 	<%- include("home") %>
 </div>
+
+<script>
+	document.addEventListener("vlc_status", (event) => {
+		const status = event.detail;
+		const toggle = status.loop ? 0 : 1;
+		document.getElementById("loop_enabled").style.display = toggle
+			? "hidden"
+			: "inline";
+		document.getElementById("loop_disabled").style.display = toggle
+			? "inline"
+			: "hidden";
+		document.getElementById("loop").onclick = () => {
+			vlcStatus(`command=pl_loop`);
+			window.location = `/settings?loop=${status.loop ? 0 : 1}`;
+		};
+	});
+</script>
