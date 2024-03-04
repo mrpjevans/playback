@@ -8,7 +8,7 @@
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "rm -rf ./dist && npm run lint && npm run format && tsc && cp -r ./src/static ./dist/ && cp -r ./src/templates ./dist/",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"deploy": "npm run build && cp -r ./dist ~/playbackos/remote && cp ./package.json ~/playbackos/remote/package.json && cd ~/playbackos/remote && npm install --omit=dev"
+		"deploy": "npm run build &&  cp ./package.json ./dist/package.json && cd ./dist && npm install --omit=dev && cd .. &&  cp -r ./dist ~/playbackos/remote"
 	},
 	"repository": {
 		"type": "git",

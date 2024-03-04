@@ -53,12 +53,7 @@ sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
 # Website
 cd $HOME/playbackos_repo/remote
 npm install
-npm run build
-cp ./package.json ./dist/package.json
-cd dist
-npm install --omit=dev
-cd ..
-cp -r ./dist $HOME/playbackos/remote
+npm run deploy
 
 cat > ./playbackos_remote.service << EOM
 [Unit]
