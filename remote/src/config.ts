@@ -14,7 +14,7 @@ const defaults = {
 		hotspotName: "playbackOS",
 		hotspotSSID: "playbackOS",
 		hotspotPassword: "playback",
-		dev: true,
+		dev: process.env.ENVIRONMENT === "dev",
 	},
 };
 

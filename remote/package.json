@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Remote control web interface for PlaybackOS",
 	"scripts": {
-		"dev": "nodemon src/server.ts --watch",
+		"dev": "ENVIRONMENT=dev nodemon src/server.ts --watch",
 		"lint": "eslint --ext .ts .",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "rm -rf ./dist && npm run lint && npm run format && tsc && cp -r ./src/static ./dist/ && cp -r ./src/templates ./dist/",
