@@ -24,7 +24,7 @@ async function vlcStatus(command = "") {
 	document.dispatchEvent(new CustomEvent("vlc_status", { detail: status }));
 
 	if (status.volume != lastStatus.volume) {
-		const volpc = (status.volume / 500) * 100;
+		const volpc = Math.round((status.volume / 500) * 100);
 		document.getElementById("volumeStatus").innerHTML = volpc;
 	}
 
