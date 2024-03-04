@@ -3,9 +3,10 @@ import * as fs from "fs";
 const defaults = {
 	logLevel: "debug",
 	logPretty: true,
-	port: 9000,
+	port: 3000,
 	name: "PlaybackOS",
 	vlcURL: "http://127.0.0.1:8080/requests",
+	vlcPassword: "playback",
 	mediaDir: `${__dirname}/../../media`,
 	wifi: {
 		wiredDevice: "eth0",

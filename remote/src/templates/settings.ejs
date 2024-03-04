@@ -8,14 +8,21 @@
 			onclick="window.location = '/settings'"
 			id="loop"
 		>
-			<%- include('icons/loop') %> Playback loop
-
-			<span class="badge rounded-pill bg-primary" id="loop_enabled"
-				>Enabled</span
-			>
-			<span class="badge rounded-pill bg-secondary" id="loop_disabled"
-				>Disabled</span
-			>
+			<div class="container">
+				<div class="row p-0">
+					<div class="col-10 p-0">
+						<%- include('icons/loop') %> Playback loop
+					</div>
+					<div class="col-2 p-0 text-end">
+						<span class="badge rounded-pill bg-primary" id="loop_enabled"
+							>Enabled</span
+						>
+						<span class="badge rounded-pill bg-secondary" id="loop_disabled"
+							>Disabled</span
+						>
+					</div>
+				</div>
+			</div>
 		</li>
 	</ul>
 
@@ -25,16 +32,15 @@
 <script>
 	document.addEventListener("vlc_status", (event) => {
 		const status = event.detail;
-		const toggle = status.loop ? 0 : 1;
+		const toggle = status.loop === "true" ? 0 : 1;
 		document.getElementById("loop_enabled").style.display = toggle
-			? "hidden"
+			? "none"
 			: "inline";
 		document.getElementById("loop_disabled").style.display = toggle
 			? "inline"
-			: "hidden";
-		document.getElementById("loop").onclick = () => {
-			vlcStatus(`command=pl_loop`);
-			window.location = `/settings?loop=${status.loop ? 0 : 1}`;
+			: "none";
+		document.getElementById("loop").onclick = async () => {
+			window.location = `/settings?loop=${toggle}`;
 		};
 	});
 </script>

@@ -48,10 +48,31 @@ fi
 # Disable taskbar
 sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
 
+# Website
+cd $HOME/playbackos_repo/remote
+npm install
+npm run build
+cp -r ./dist $HOME/playbackos/remote
+
+cat > ./playbackos_remote.service << EOM
+[Unit]
+Description=PlaybackOS Web Server
+
+[Service]
+ExecStart=/usr/bin/node $HOME/playbackos/remote/server.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOM
+
+sudo mv ./playbackos_remote.service /usr/lib/systemd/playbackos_remote.service
+sudo systemctl enable /usr/lib/systemd/playbackos_remote.service
+
 # Enable wifiwatch
-if cat /etc/crontab | grep $HOME/playbackos/wifi/wifiwatch.js; then
+if cat /etc/crontab | grep $HOME/playbackos/remote/wifiwatch.js; then
     echo "Cron job already exists, skipping"
 else
 		echo "Creating cron job"
-    sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playbackos/wifi/wifiwatch.js > $HOME/playbackos/wifi/wifiwatch.log 2>&1' >> /etc/crontab"
+    sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playbackos/remote/wifiwatch.js > $HOME/playbackos/remote/wifiwatch.log 2>&1' >> /etc/crontab"
 fi

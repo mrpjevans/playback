@@ -46,23 +46,27 @@ export async function routes(fastify, _options) {
 	});
 
 	fastify.get("/vlc", async (request, reply) => {
-		const fullURL = `${config.vlcURL}/status.xml${request.url.substring(4)}`;
-
 		try {
-			const response = await fetch(fullURL, {
-				headers: {
-					Authorization: `Basic ${btoa(":playback")}`,
-				},
-			});
-
-			return await parseStringPromise(await response.text(), {
-				explicitArray: false,
-			});
+			return callVLC(request.url.substring(4));
 		} catch (err) {
 			reply.status(500);
 			return err.message;
 		}
 	});
+
+	async function callVLC(url = "") {
+		const fullURL = `${config.vlcURL}/status.xml${url}`;
+
+		const response = await fetch(fullURL, {
+			headers: {
+				Authorization: `Basic ${btoa(`:${config.vlcPassword}`)}`,
+			},
+		});
+
+		return await parseStringPromise(await response.text(), {
+			explicitArray: false,
+		});
+	}
 
 	//
 	// Settings
@@ -72,6 +76,7 @@ export async function routes(fastify, _options) {
 			execSync(
 				`sed -i 's/loop=./loop=${request.query.loop}/g' $HOME/.config/vlc/vlcrc`,
 			);
+			await callVLC("?command=pl_loop");
 		}
 
 		return reply.view("settings");
