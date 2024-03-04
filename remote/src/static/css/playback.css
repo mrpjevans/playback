@@ -1,5 +1,5 @@
 #header {
-	font-size: 4vw
+	font-size: 4vw;
 }
 
 #meta {
@@ -42,3 +42,4 @@ a {
 #loop_enabled, #loop_disabled {
 	display:none;
 }
+

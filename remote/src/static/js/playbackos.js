@@ -28,18 +28,17 @@ async function vlcStatus(command = "") {
 		document.getElementById("volumeStatus").innerHTML = volpc;
 	}
 
-	if (lastStatus.information) {
-		if (!status.information.category[0]) {
-			return;
-		}
-
-		const filename = status.information.category[0].info[0]
-			? status.information.category[0].info[0]._
-			: status.information.category[0].info._;
-		document.getElementById("currentFile").innerHTML = filename
-			.split("/")
-			.slice(-1);
+	if (!status.information.category[0]) {
+		return;
 	}
+
+	const filename = status.information.category[0].info[0]
+		? status.information.category[0].info[0]._
+		: status.information.category[0].info._;
+
+	document.getElementById("currentFile").innerHTML = filename
+		.split("/")
+		.slice(-1);
 
 	const time = new Date(status.time * 1000).toISOString().slice(11, 19);
 	const length = new Date(status.length * 1000).toISOString().slice(11, 19);
