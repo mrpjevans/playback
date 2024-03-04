@@ -23,7 +23,7 @@ echo playback_os_ident_1.mp4 > $HOME/playbackos/media/boot.m3u
 # Autostart
 cat >> $WAYFIRE_FILE << EOF
 [autostart]
-vlc = cvlc $HOME/playbackos/playlists/boot.m3u
+vlc = cvlc $HOME/playbackos/media/boot.m3u
 EOF
 
 # Set up desktop
@@ -72,6 +72,7 @@ EOM
 
 sudo mv ./playbackos_remote.service /usr/lib/systemd/playbackos_remote.service
 sudo systemctl enable /usr/lib/systemd/playbackos_remote.service
+sudo systemctl start playbackos_remote.service
 
 # Enable wifiwatch
 if cat /etc/crontab | grep $HOME/playbackos/remote/wifiwatch.js; then
