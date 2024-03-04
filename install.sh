@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 WAYFIRE_FILE="$HOME/.config/wayfire.ini"
 
 # Updates & Depedencies
