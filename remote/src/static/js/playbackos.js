@@ -37,7 +37,7 @@ async function vlcStatus(command = "") {
 	);
 
 	const filename = meta.info._
-		? meta.info.$.name
+		? meta.info._
 		: meta.info.find((info) => info.$.name === "filename")._;
 
 	document.getElementById("currentFile").innerHTML = filename
