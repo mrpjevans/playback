@@ -35,8 +35,10 @@ async function vlcStatus(command = "") {
 	const meta = status.information.category.find(
 		(category) => category.$.name === "meta",
 	);
-	const filenameObj = meta.info.find((info) => info.$.name === "filename");
-	const filename = filenameObj._;
+
+	const filename = meta.info._
+		? meta.info.$.name
+		: meta.info.find((info) => info.$.name === "filename")._;
 
 	document.getElementById("currentFile").innerHTML = filename
 		.split("/")
