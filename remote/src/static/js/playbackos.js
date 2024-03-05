@@ -32,9 +32,11 @@ async function vlcStatus(command = "") {
 		return;
 	}
 
-	const filename = status.information.category[0].info[0]
-		? status.information.category[0].info[0]._
-		: status.information.category[0].info._;
+	const meta = status.information.category.find(
+		(category) => category.$ === "meta",
+	);
+	const filenameObj = meta.info.find((info) => info.$.name === "filename");
+	const filename = filenameObj._;
 
 	document.getElementById("currentFile").innerHTML = filename
 		.split("/")
