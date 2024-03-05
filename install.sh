@@ -55,6 +55,9 @@ sudo plymouth-set-default-theme --rebuild-initrd pix
 # Disable taskbar
 sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
 
+# Hide mouse
+sudo mv /usr/share/icons/PiXflat/cursors/left_ptr /usr/share/icons/PiXflat/cursors/left_ptr.bak
+
 # Website
 cd $HOME/playbackos_repo/remote
 npm install
@@ -84,4 +87,8 @@ else
     sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playbackos/remote/wifiwatch.js > $HOME/playbackos/remote/wifiwatch.log 2>&1' >> /etc/crontab"
 fi
 
+# Initial wifiwatch run
+/usr/bin/node $HOME/playbackos/remote/wifiwatch.js
+
+# Done
 sudo reboot
