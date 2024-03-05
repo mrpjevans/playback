@@ -29,7 +29,7 @@ export function getConnections(): NmcliConnection[] {
 
 	for (const ip of ips) {
 		const conn = connections.find(
-			(connection) => connection.device === ip.label,
+			(connection) => connection.device === ip.ifname,
 		);
 		if (conn) {
 			const v4 = ip.addr_info.find((addr) => addr.family === "inet");
