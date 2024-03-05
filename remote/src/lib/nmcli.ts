@@ -31,8 +31,10 @@ export function getConnections(): NmcliConnection[] {
 		const conn = connections.find(
 			(connection) => connection.device === ip.label,
 		);
-		const v4 = ip.addr_info.find((addr) => addr.family === "inet");
-		conn.ipv4 = v4.local;
+		if (conn) {
+			const v4 = ip.addr_info.find((addr) => addr.family === "inet");
+			conn.ipv4 = v4.local;
+		}
 	}
 
 	return connections;
