@@ -47,6 +47,11 @@ if grep -q dpms_timeout $WAYFIRE_FILE ; then
     sed -i 's/dpms_timeout.*/dpms_timeout=600/' $WAYFIRE_FILE
 fi
 
+# Splash screen
+sudo rm /usr/share/plymouth/themes/pix/splash.png
+sudo cp $HOME/playbackos_repo/assets/splash.png /usr/share/plymouth/themes/pix/splash.png
+sudo plymouth-set-default-theme --rebuild-initrd pix
+
 # Disable taskbar
 sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
 
@@ -78,3 +83,5 @@ else
 		echo "Creating cron job"
     sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playbackos/remote/wifiwatch.js > $HOME/playbackos/remote/wifiwatch.log 2>&1' >> /etc/crontab"
 fi
+
+sudo reboot
