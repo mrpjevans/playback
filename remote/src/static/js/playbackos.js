@@ -33,7 +33,7 @@ async function vlcStatus(command = "") {
 	}
 
 	const meta = status.information.category.find(
-		(category) => category.$ === "meta",
+		(category) => category.$.name === "meta",
 	);
 	const filenameObj = meta.info.find((info) => info.$.name === "filename");
 	const filename = filenameObj._;
