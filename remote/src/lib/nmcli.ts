@@ -5,6 +5,7 @@ export type NmcliConnection = {
 	uuid?: string;
 	type?: string;
 	device?: string;
+	ipv4?: string;
 };
 
 export function getConnections(): NmcliConnection[] {
@@ -13,15 +14,28 @@ export function getConnections(): NmcliConnection[] {
 	const lines = output.split("\n");
 	lines.pop();
 
-	return lines.map((line) => {
+	const connections = lines.map((line) => {
 		const fields = line.split(":");
 		return {
 			name: fields[0],
 			uuid: fields[1],
 			type: fields[2],
 			device: fields[3],
+			ipv4: "",
 		};
 	});
+
+	const ips = JSON.parse(execSync("ip -j address show").toString());
+
+	for (const ip of ips) {
+		const conn = connections.find(
+			(connection) => connection.device === ip.label,
+		);
+		const v4 = ip.addr_info.find((addr) => addr.family === "inet");
+		conn.ipv4 = v4.local;
+	}
+
+	return connections;
 }
 
 export function deleteConnection(name: string) {
