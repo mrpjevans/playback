@@ -11,8 +11,8 @@ window.onload = () => {
 
 async function vlcStatus(command = "") {
 	if (
-		(command.startsWith("volume&val=+") && lastStatus.volume === 500) ||
-		(command.startsWith("volume&val=-") && lastStatus.volume === 0)
+		(command.startsWith("volume&val=+") && lastStatus.volume >= 500) ||
+		(command.startsWith("volume&val=-") && lastStatus.volume <= 0)
 	) {
 		return;
 	}
