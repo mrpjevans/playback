@@ -27,13 +27,15 @@ export function getConnections(): NmcliConnection[] {
 
 	const ips = JSON.parse(execSync("ip -j address show").toString());
 
+	const connectionMap = new Map(connections.map((conn) => [conn.device, conn]));
+
 	for (const ip of ips) {
-		const conn = connections.find(
-			(connection) => connection.device === ip.ifname,
-		);
+		const conn = connectionMap.get(ip.ifname);
 		if (conn) {
 			const v4 = ip.addr_info.find((addr) => addr.family === "inet");
-			conn.ipv4 = v4.local;
+			if (v4) {
+				conn.ipv4 = v4.local;
+			}
 		}
 	}
 
