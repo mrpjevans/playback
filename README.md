@@ -76,6 +76,34 @@ For more VLC features, it's own web interface is exposed on port 8080.
 Currently, the only way to get files on to the system is to use `scp` or `rsync`. Place
 all files in `~/playbackos/media`. You can then access then using the file browser.
 
+## Audio and Video
+
+### Video
+
+All the heavy lifting is being done by VLC, so if it works there it will probably
+work here.
+
+### Audio
+
+VLC is configured for HDMI passthrough. This means that any decoding of DTS etc is done
+by the receiving device. This allows for 5.1 surround.
+
+## HDMI
+
+The system is configured to use HDMI 0 on the Raspberry Pi 5, the one nearest to the power
+connector. Using HDMI 1 may result in no sound.
+
+## Preparing audio for use with Playback
+
+Playback support up to 5.1 surround via HDMI passthrough.
+If you find sound isn't quite right, distorted or a mess, use ffmpeg to recode the audio:
+
+```
+ffmpeg -i input.mp4 -c:a:0 aac -ac:a:0 6 -c:v copy output.mp4
+```
+
+This will convert the audio to 5.1 AAC without re-encoding the video.
+
 ## Wifi
 
 On installation, a 'hotspot' network configuration is prepared. If there is no valid

@@ -2056,7 +2056,7 @@ qt-fs-controller=0
 alsa-audio-device=sysdefault:CARD=vc4hdmi0
 
 # Audio output channels (integer)
-alsa-audio-channels=4967
+alsa-audio-channels=4199
 
 # Audio passthrough mode (integer)
 alsa-passthrough=2
