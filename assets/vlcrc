@@ -2053,13 +2053,13 @@ qt-fs-controller=0
 [alsa] # ALSA audio output
 
 # Audio output device (string)
-#alsa-audio-device=default
+alsa-audio-device=sysdefault:CARD=vc4hdmi0
 
 # Audio output channels (integer)
-#alsa-audio-channels=6
+alsa-audio-channels=4967
 
 # Audio passthrough mode (integer)
-#alsa-passthrough=-1
+alsa-passthrough=2
 
 # List of codecs to accept for passthrough (string)
 #alsa-passthrough-types=
@@ -3973,7 +3973,7 @@ http-password=playback
 #audio-time-stretch=1
 
 # Audio output module (string)
-aout=any
+aout=alsa
 
 # Media role (string)
 #role=video
