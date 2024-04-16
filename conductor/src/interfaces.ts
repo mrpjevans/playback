@@ -4,11 +4,19 @@ export interface Item {
 	stop?: number;
 	startTime?: number;
 	stopTime?: number;
+	length?: number;
+}
+
+export interface FillerItem {
+	file: string;
+	length?: number;
+	countdown?: Boolean;
 }
 
 export interface Composition {
 	basePath?: string;
 	timeType?: "real" | "relative";
+	filler?: FillerItem;
 	items?: Item[];
 }
 
@@ -17,6 +25,11 @@ interface VlcStatusInformationCategory {
 		name: string;
 	};
 	info: {
+		_: string;
+		$: {
+			name: string;
+		};
+	} | {
 		_: string;
 		$: {
 			name: string;

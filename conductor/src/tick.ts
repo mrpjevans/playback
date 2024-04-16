@@ -1,3 +1,4 @@
+import { count } from "console";
 import { Composition } from "./interfaces";
 import { log } from "./log";
 import { callVlc, vlcInfo } from "./vlc";
@@ -7,6 +8,7 @@ let cursor = 0;
 let firstFlag = true;
 let counter = 0;
 let waitUntil = 0;
+let filling = false;
 
 export async function tick(composition: Composition) {
 	// This will not be running on a real-time OS, so we run slightly less than
@@ -48,8 +50,22 @@ export async function tick(composition: Composition) {
 		}
 
 		if (waitUntil === 0 || counter >= waitUntil) {
+			filling = false;
 			await playFile(composition);
 			waitUntil = 0;
+			return;
+		}
+
+		// Play filler countdown
+		if (waitUntil > 0 && composition.filler && !filling) {
+			log.info(`Filling time with ${composition.filler.file}`);
+			await callVlc(`?command=in_play&input=${composition.basePath}/${composition.filler.file}`);
+			if (composition.filler.countdown) {
+				const startTime = composition.filler.length - (waitUntil - counter);
+				log.debug(`Playing countdown for ${waitUntil - counter}s`);
+				await callVlc(`?command=seek&val=${startTime}`);
+			}
+			filling = true;
 		}
 
 	}
@@ -71,6 +87,10 @@ export async function tick(composition: Composition) {
 		log.info(`Stopping playback at ${current.stop}s`);
 		await callVlc(`?command=pl_stop`);
 		return;
+	}
+
+	if (waitUntil > 0 && filling && counter >= waitUntil) {
+		await callVlc(`?command=pl_stop`);
 	}
 
 }
