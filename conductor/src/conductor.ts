@@ -1,9 +1,21 @@
+import * as commandLineArgs from 'command-line-args';
 import { log } from "./log";
 import { tick } from "./tick";
 import { getComposition } from "./compositonParser";
 import { callVlc } from "./vlc";
 
-const composition = getComposition();
+const optionsDefinitions = [
+	{
+		name: "config",
+		alias: "c",
+		type: String,
+		description: "Path to composition file"
+	}
+]
+
+const options = commandLineArgs(optionsDefinitions)
+
+const composition = getComposition(options?.config);
 
 log.info("Clearing playlist");
 (async () => {

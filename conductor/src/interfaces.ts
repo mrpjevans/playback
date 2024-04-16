@@ -2,10 +2,13 @@ export interface Item {
 	file: string;
 	start?: number;
 	stop?: number;
+	startTime?: number;
+	stopTime?: number;
 }
 
 export interface Composition {
 	basePath?: string;
+	timeType?: "real" | "relative";
 	items?: Item[];
 }
 
