@@ -1,5 +1,4 @@
-import { start } from "repl";
-import { Composition, Item } from "./interfaces";
+import { Composition } from "./interfaces";
 import { log } from "./log";
 import { callVlc, vlcInfo } from "./vlc";
 
@@ -16,30 +15,28 @@ export async function tick(composition: Composition) {
 	const thisTimeUnix = Math.floor(thisTime.getTime() / 1000);
 	if (thisTimeUnix === lastTimeUnix) return;
 	lastTimeUnix = thisTimeUnix;
+	if (firstFlag && composition?.timeType === "real") {
+		counter = Math.floor(new Date().getTime() / 1000) - 1;
+	}
 	log.debug(`${thisTime.toISOString()} Tick: ${counter}`);
 	counter++;
 
-	if (cursor === -1) return;
-
 	const playInfo = await vlcInfo();
 	log.debug(playInfo);
-
-	if (firstFlag) {
-		await playFile(composition);
-		firstFlag = false;
-		return;
-	}
 
 	if (playInfo.state === "stopped") {
 
 		if (waitUntil === 0) {
 
-			cursor++;
+			if (!firstFlag) {
+				cursor++;
+			} else {
+				firstFlag = false;
+			}
 
 			if (cursor === composition.items.length) {
 				log.info("Playback complete");
-				cursor = -1;
-				return;
+				process.exit();
 			}
 
 			const current = composition.items[cursor];
