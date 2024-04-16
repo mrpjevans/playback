@@ -1,9 +1,11 @@
-import { Composition } from "./interfaces";
+import { start } from "repl";
+import { Composition, Item } from "./interfaces";
 import { log } from "./log";
 import { callVlc, vlcInfo } from "./vlc";
 
 let lastTimeUnix = 0;
 let cursor = 0;
+let firstFlag = true;
 
 export async function tick(composition: Composition) {
 	// This will not be running on a real-time OS, so we run slightly less than
@@ -19,21 +21,44 @@ export async function tick(composition: Composition) {
 	const playInfo = await vlcInfo();
 	log.debug(playInfo);
 
-	const current = composition.items[cursor];
+	if (firstFlag) {
+		await playFile(composition);
+		firstFlag = false;
+		return;
+	}
 
-	// Anything happening?
-	if (playInfo.file === "") {
+	if (playInfo.state === "stopped") {
+		
+		cursor++;
+
 		if (cursor === composition.items.length) {
 			log.info("Playback complete");
 			cursor = -1;
 			return;
 		}
+		
+		await playFile(composition);
 
-		log.debug(`Cursor: ${cursor}`);
-		const fullPath = `${composition.basePath}/${current.file}`;
-		log.info(`Playing ${cursor}:${fullPath}`);
-		await callVlc(`?command=in_play&input=${fullPath}`);
-
-		cursor++;
 	}
+
+	const current = composition.items[cursor];
+
+	if (current.stop && playInfo.position >= current.stop) {
+		await callVlc(`?command=pl_stop`);
+		return;
+	}
+	
+}
+
+async function playFile(composition: Composition) {
+	const item = composition.items[cursor];
+	log.debug(`Cursor: ${cursor}`);
+	const fullPath = `${composition.basePath}/${item.file}`;
+	log.info(`Playing ${cursor}:${fullPath}`);
+	await callVlc(`?command=in_play&input=${fullPath}`);
+
+	if (item.start) {
+		await callVlc(`?command=seek&val=${item.start}`);
+	}
+
 }

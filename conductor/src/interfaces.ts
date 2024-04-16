@@ -1,5 +1,7 @@
 export interface Item {
 	file: string;
+	start?: number;
+	stop?: number;
 }
 
 export interface Composition {
