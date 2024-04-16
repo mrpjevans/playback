@@ -134,4 +134,4 @@ dist
 .DS_Store
 remote/media
 conductor/media
-src/composition.json
+conductor/src/composition.json
