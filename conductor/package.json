@@ -1,0 +1,38 @@
+{
+  "name": "conductor",
+  "version": "1.0.0",
+  "description": "PlaybackOS' automated playback system for VLC",
+  "scripts": {
+    "dev": "ENVIRONMENT=dev nodemon src/conductor.ts --watch",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "build": "rm -rf ./dist && npm run lint && npm run format && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npm run build && rm -rf ~/playbackos/conductor && cp ./package.json ./dist/package.json && cd ./dist && npm install --omit=dev && cd .. &&  cp -r ./dist ~/playbackos/conductor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrpjevans/playbackos.git"
+  },
+  "keywords": [
+    "raspberrypi",
+    "video",
+    "mediaplayer"
+  ],
+  "author": "PJ Evans <pj@mrpjevans.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrpjevans/playbackos/issues"
+  },
+  "homepage": "https://github.com/mrpjevans/playbackos#readme",
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "nodemon": "^3.1.0",
+    "pino-pretty": "^11.0.0",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "pino": "^8.20.0",
+    "xml2js": "^0.6.2"
+  }
+}

@@ -132,4 +132,5 @@ dist
 # Other
 *.code-workspace
 .DS_Store
-media
+remote/media
+conductor/media
