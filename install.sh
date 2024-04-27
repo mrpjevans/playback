@@ -20,6 +20,7 @@ cp $HOME/playbackos_repo/assets/vlcrc $HOME/.config/vlc/
 rm -rf $HOME/playbackos
 mkdir -p $HOME/playbackos/media
 cp $HOME/playbackos_repo/assets/playback_os_ident_1.mp4 $HOME/playbackos/media/
+cp $HOME/playbackos_repo/assets/surround_test.mp4 $HOME/playbackos/media/
 echo playback_os_ident_1.mp4 > $HOME/playbackos/media/boot.m3u
 
 # Autostart

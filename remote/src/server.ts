@@ -36,6 +36,16 @@ fastify.addHook("onSend", async (req, reply, _done) => {
 
 fastify.register(fastifyForm);
 
+const authenticate = { realm: 'playback' }
+fastify.register(require('@fastify/basic-auth'), { validate, authenticate })
+function validate(username, password, req, reply, done) {
+	if (username === config.webUsername && password === config.webPassword) {
+		done()
+	} else {
+		done(new Error('Auth failed'))
+	}
+}
+
 fastify.register(routes);
 
 const start = async () => {

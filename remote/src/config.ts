@@ -7,6 +7,8 @@ const defaults = {
 	name: "PlaybackOS",
 	vlcURL: "http://127.0.0.1:8080/requests",
 	vlcPassword: "playback",
+	webUsername: "playback",
+	webPassword: "playback",
 	mediaDir: `${__dirname}/../media`,
 	wifi: {
 		wiredDevice: "eth0",
