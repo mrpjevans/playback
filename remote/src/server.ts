@@ -4,6 +4,7 @@ import Fastify from "fastify";
 import * as fastifyStatic from "@fastify/static";
 import * as fastifyView from "@fastify/view";
 import * as fastifyForm from "@fastify/formbody";
+import * as fastifyBasicAuth from "@fastify/basic-auth";
 import * as ejs from "ejs";
 
 import { config } from "./config";
@@ -36,13 +37,13 @@ fastify.addHook("onSend", async (req, reply, _done) => {
 
 fastify.register(fastifyForm);
 
-const authenticate = { realm: 'playback' }
-fastify.register(require('@fastify/basic-auth'), { validate, authenticate })
+const authenticate = { realm: "playback" };
+fastify.register(fastifyBasicAuth, { validate, authenticate });
 function validate(username, password, req, reply, done) {
 	if (username === config.webUsername && password === config.webPassword) {
-		done()
+		done();
 	} else {
-		done(new Error('Auth failed'))
+		done(new Error("Auth failed"));
 	}
 }
 

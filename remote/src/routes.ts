@@ -10,10 +10,9 @@ import {
 	deleteConnection,
 	getConnections,
 } from "./lib/nmcli";
-import { doesNotMatch } from "assert";
 
 export async function routes(fastify, _options) {
-	fastify.addHook('onRequest', fastify.basicAuth);
+	fastify.addHook("onRequest", fastify.basicAuth);
 
 	fastify.get("/", async (_request, reply) => {
 		return reply.view("index");
@@ -133,7 +132,7 @@ export async function routes(fastify, _options) {
 
 		try {
 			deleteConnection(request.body.ssid);
-		} catch (err) { }
+		} catch (err) {}
 
 		try {
 			connectToWifi(request.body.ssid, request.body.password);
@@ -149,6 +148,6 @@ export async function routes(fastify, _options) {
 		// Gives NMCLI enough time to catch up
 		setTimeout(() => {
 			reply.redirect("/wifi/");
-		}, 2000)
+		}, 2000);
 	});
 }
