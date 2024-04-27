@@ -1,18 +1,18 @@
 {
-	"name": "playbackos_remote",
+	"name": "playback_remote",
 	"version": "1.0.0",
-	"description": "Remote control web interface for PlaybackOS",
+	"description": "Remote control web interface for Playback",
 	"scripts": {
 		"dev": "ENVIRONMENT=dev nodemon src/server.ts --watch",
 		"lint": "eslint --ext .ts .",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "rm -rf ./dist && npm run lint && npm run format && tsc && cp -r ./src/static ./dist/ && cp -r ./src/templates ./dist/",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"deploy": "npm run build && rm -rf ~/playbackos/remote && cp ./package.json ./dist/package.json && cd ./dist && npm install --omit=dev && cd .. &&  cp -r ./dist ~/playbackos/remote"
+		"deploy": "npm run build && rm -rf ~/playback/remote && cp ./package.json ./dist/package.json && cd ./dist && npm install --omit=dev && cd .. &&  cp -r ./dist ~/playback/remote"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/mrpjevans/playbackos.git"
+		"url": "git+https://github.com/mrpjevans/playback.git"
 	},
 	"keywords": [
 		"raspberrypi",
@@ -22,9 +22,9 @@
 	"author": "PJ Evans <pj@mrpjevans.com>",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/mrpjevans/playbackos/issues"
+		"url": "https://github.com/mrpjevans/playback/issues"
 	},
-	"homepage": "https://github.com/mrpjevans/playbackos#readme",
+	"homepage": "https://github.com/mrpjevans/playback#readme",
 	"devDependencies": {
 		"@types/node": "^20.11.5",
 		"@typescript-eslint/eslint-plugin": "^6.17.0",

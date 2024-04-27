@@ -9,29 +9,29 @@ sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install git vlc nodejs npm
 
 # Repo checkout
-rm -rf $HOME/playbackos_repo
-git clone https://github.com/mrpjevans/playbackos.git $HOME/playbackos_repo
+rm -rf $HOME/playback_repo
+git clone https://github.com/mrpjevans/playback.git $HOME/playback_repo
 
 # VLC Config
 mkdir $HOME/.config/vlc
-cp $HOME/playbackos_repo/assets/vlcrc $HOME/.config/vlc/
+cp $HOME/playback_repo/assets/vlcrc $HOME/.config/vlc/
 
 # Directory setup
-rm -rf $HOME/playbackos
-mkdir -p $HOME/playbackos/media
-cp $HOME/playbackos_repo/assets/playback_os_ident_1.mp4 $HOME/playbackos/media/
-cp $HOME/playbackos_repo/assets/surround_test.mp4 $HOME/playbackos/media/
-echo playback_os_ident_1.mp4 > $HOME/playbackos/media/boot.m3u
+rm -rf $HOME/playback
+mkdir -p $HOME/playback/media
+cp $HOME/playback_repo/assets/playback_os_ident_1.mp4 $HOME/playback/media/
+cp $HOME/playback_repo/assets/surround_test.mp4 $HOME/playback/media/
+echo playback_os_ident_1.mp4 > $HOME/playback/media/boot.m3u
 
 # Autostart
 cat >> $WAYFIRE_FILE << EOF
 [autostart]
-vlc = cvlc $HOME/playbackos/media/boot.m3u
+vlc = cvlc $HOME/playback/media/boot.m3u
 EOF
 
 # Set up desktop
 mkdir -p $HOME/.config/pcmanfm/LXDE-pi
-cp $HOME/playbackos_repo/assets/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
+cp $HOME/playback_repo/assets/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
 
 # Set login to auto/desktop
 sudo systemctl --quiet set-default graphical.target
@@ -50,7 +50,7 @@ fi
 
 # Splash screen
 sudo rm /usr/share/plymouth/themes/pix/splash.png
-sudo cp $HOME/playbackos_repo/assets/splash.png /usr/share/plymouth/themes/pix/splash.png
+sudo cp $HOME/playback_repo/assets/splash.png /usr/share/plymouth/themes/pix/splash.png
 sudo plymouth-set-default-theme --rebuild-initrd pix
 
 # Disable taskbar
@@ -60,36 +60,36 @@ sudo sed -i '/^[^#].*wfrespawn wf-panel-pi/ s/^/# /' /etc/wayfire/defaults.ini
 sudo mv /usr/share/icons/PiXflat/cursors/left_ptr /usr/share/icons/PiXflat/cursors/left_ptr.bak
 
 # Website
-cd $HOME/playbackos_repo/remote
+cd $HOME/playback_repo/remote
 npm install
 npm run deploy
 
-cat > ./playbackos_remote.service << EOM
+cat > ./playback_remote.service << EOM
 [Unit]
-Description=PlaybackOS Web Server
+Description=Playback Web Server
 
 [Service]
-ExecStart=/usr/bin/node $HOME/playbackos/remote/server.js
+ExecStart=/usr/bin/node $HOME/playback/remote/server.js
 Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
 EOM
 
-sudo mv ./playbackos_remote.service /usr/lib/systemd/playbackos_remote.service
-sudo systemctl enable /usr/lib/systemd/playbackos_remote.service
-sudo systemctl start playbackos_remote.service
+sudo mv ./playback_remote.service /usr/lib/systemd/playback_remote.service
+sudo systemctl enable /usr/lib/systemd/playback_remote.service
+sudo systemctl start playback_remote.service
 
 # Enable wifiwatch
-if cat /etc/crontab | grep $HOME/playbackos/remote/wifiwatch.js; then
+if cat /etc/crontab | grep $HOME/playback/remote/wifiwatch.js; then
     echo "Cron job already exists, skipping"
 else
 		echo "Creating cron job"
-    sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playbackos/remote/wifiwatch.js > $HOME/playbackos/remote/wifiwatch.log 2>&1' >> /etc/crontab"
+    sudo sh -c "echo '*/2 *	* * *	root	/usr/bin/node $HOME/playback/remote/wifiwatch.js > $HOME/playback/remote/wifiwatch.log 2>&1' >> /etc/crontab"
 fi
 
 # Initial wifiwatch run
-/usr/bin/node $HOME/playbackos/remote/wifiwatch.js
+/usr/bin/node $HOME/playback/remote/wifiwatch.js
 
 # Done
 sudo reboot
