@@ -15,17 +15,23 @@
 						<%= connection.name %>
 						
 						<% if (connection.type !== '') { %>
-							&nbsp;<span class="badge rounded-pill bg-warning text-dark"><%= connection.type.split("-").pop() %></span>
+							<% const connType = connection.type.split("-").pop() %>
+							&nbsp;<span class="badge rounded-pill bg-warning text-dark"><%= connType %></span>
 							<% if (connection.name === hotspotName) { %>
 								&nbsp;<span class="badge rounded-pill bg-danger text-dark">hotspot</span>
 							<% } %>
-						<% } %>
+						
+							<% if (connection.device !== '') { %>
+								&nbsp;<span class="badge rounded-pill bg-info text-dark">active</span>
+							<% } %>
 
-						<% if (connection.device !== '') { %>
-							&nbsp;<span class="badge rounded-pill bg-info text-dark">active</span>
-						<% } %>
+							&nbsp;<%= connection.ipv4 %>
 
-						&nbsp;<%= connection.ipv4 %>
+							<% if (connType === 'wireless' && connection.name !== hotspotName) { %>
+								<span style="float:right"><button type="button" class="btn btn-sm btn-danger" onClick="confirmDeletion('<%= connection.name %>')"><%- include('../icons/trash.ejs') %></button></span>
+							<% } %>
+
+						<% } %>
 						
 					</li>
 				<% } %>
@@ -54,10 +60,38 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="confirm-delete" data-absfile="" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<form method="post" action="delete" onSubmit="showWaiting()">
+			<input type="hidden" name="ssid" id="delete-ssid" value="" />
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm deletion</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="text-center mb-2">Are you sure you want to delete '<span id="delete-ssid-display"></span>'?</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button class="btn btn-danger">Delete</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
 	<script>
 		function showWaiting() {
 			document.getElementById("busy").style.visibility = "visible";
 			document.getElementById("cta").setAttribute("disabled", "true");
+		}
+		function confirmDeletion(name) {
+			document.getElementById('delete-ssid').value = name;
+			document.getElementById('delete-ssid-display').innerText = name;
+			new bootstrap.Modal("#confirm-delete").show();
 		}
 	</script>
 </div>

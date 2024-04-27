@@ -16,7 +16,7 @@ const defaults = {
 		hotspotName: "playback",
 		hotspotSSID: "playback",
 		hotspotPassword: "playback",
-		dev: process.env.ENVIRONMENT === "dev",
+		dev: process.env.ENVIRONMENT === "devs",
 	},
 };
 
