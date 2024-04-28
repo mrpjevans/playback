@@ -2,9 +2,8 @@ export interface Item {
 	file: string;
 	start?: number;
 	stop?: number;
-	startTime?: number;
-	stopTime?: number;
-	length?: number;
+	startTime?: number | string;
+	stopTime?: number | string;
 }
 
 export interface FillerItem {

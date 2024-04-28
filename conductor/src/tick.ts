@@ -42,7 +42,7 @@ export async function tick(composition: Composition) {
 			}
 
 			const current = composition.items[cursor];
-			waitUntil = current.startTime ?? 0;
+			waitUntil = (current.startTime as number) ?? 0;
 			if (waitUntil > 0) {
 				log.info(`Waiting until tick ${current.startTime}`)
 			}
@@ -76,7 +76,7 @@ export async function tick(composition: Composition) {
 
 		log.trace("Playing");
 
-		if (current.stopTime && current.stopTime <= counter) {
+		if (current.stopTime && (current.stopTime as number) <= counter) {
 			log.info(`Stopping playback at ${current.stopTime}s`);
 			await callVlc(`?command=pl_stop`);
 		}

@@ -19,6 +19,7 @@ const composition = getComposition(options?.config);
 
 log.info("Clearing playlist");
 (async () => {
+	await callVlc(`?command=pl_stop`);
 	await callVlc(`?command=pl_empty`);
 })();
 
