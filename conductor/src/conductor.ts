@@ -1,7 +1,7 @@
 import * as commandLineArgs from 'command-line-args';
 import { log } from "./log";
 import { tick } from "./tick";
-import { getComposition } from "./compositonParser";
+import { getComposition } from "./compositionParser";
 import { callVlc } from "./vlc";
 
 const optionsDefinitions = [

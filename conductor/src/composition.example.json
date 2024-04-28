@@ -1,0 +1,19 @@
+{
+	"timeType": "relative",
+	"basePath": "./",
+	"filler": {
+		"file": "",
+		"length": 0,
+		"countdown": true
+	},
+	"items": [
+		{
+			"file": "",
+			"length": 0,
+			"startTime": 0,
+			"stopTime": 10,
+			"stop": 10,
+			"start": 10
+		}
+	]
+}

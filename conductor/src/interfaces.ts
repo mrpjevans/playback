@@ -4,6 +4,8 @@ export interface Item {
 	stop?: number;
 	startTime?: number | string;
 	stopTime?: number | string;
+	preRoll?: Item
+	postRoll?: Item
 }
 
 export interface FillerItem {
