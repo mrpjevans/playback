@@ -3908,7 +3908,7 @@ sout-x264-tune=film
 #lua-config=
 
 # Password (string)
-http-password=playback
+http-password=playbackpassword
 
 # Source directory (string)
 #http-src=

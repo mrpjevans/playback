@@ -34,19 +34,19 @@ function getConnectionStatus(): ConnectionStatus {
 	return {
 		connections,
 		wired: connections.some(
-			(connection) => connection.device === config.wifi.wiredDevice,
+			(connection) => connection.device === config.wiredDevice,
 		),
 		wifi:
 			connections.find(
-				(connection) => connection.device === config.wifi.wifiDevice,
+				(connection) => connection.device === config.wifiDevice,
 			) || false,
 		hotspotActive: connections.some(
 			(connection) =>
-				connection.name === config.wifi.hotspotName &&
-				connection.device === config.wifi.wifiDevice,
+				connection.name === config.hotspotName &&
+				connection.device === config.wifiDevice,
 		),
 		hotspotExists: connections.some(
-			(connection) => connection.name === config.wifi.hotspotName,
+			(connection) => connection.name === config.hotspotName,
 		),
 	};
 }
@@ -56,25 +56,25 @@ try {
 	const connections = getConnectionStatus();
 
 	if (!connections.hotspotExists) {
-		log.info(`Hotspot '${config.wifi.hotspotName}' not found, creating...`);
+		log.info(`Hotspot '${config.hotspotName}' not found, creating...`);
 		createWifiConnection({
-			name: config.wifi.hotspotName,
-			device: config.wifi.wifiDevice,
-			ssid: config.wifi.hotspotSSID,
-			password: config.wifi.hotspotPassword,
+			name: config.hotspotName,
+			device: config.wifiDevice,
+			ssid: config.hotspotSSID,
+			password: config.hotspotPassword,
 		});
-		log.info(`Hotspot '${config.wifi.hotspotName}' created`);
+		log.info(`Hotspot '${config.hotspotName}' created`);
 	} else {
-		log.debug(`Hotspot '${config.wifi.hotspotName}' found`);
+		log.debug(`Hotspot '${config.hotspotName}' found`);
 	}
 
 	if (!connections.wifi) {
 		log.info(
-			`No wifi connection, starting hotspot '${config.wifi.hotspotName}'`,
+			`No wifi connection, starting hotspot '${config.hotspotName}'`,
 		);
-		startAP(config.wifi.hotspotName);
+		startAP(config.hotspotName);
 	} else if (connections.hotspotActive) {
-		log.info(`Hotspot '${config.wifi.hotspotName}' active`);
+		log.info(`Hotspot '${config.hotspotName}' active`);
 	} else {
 		log.info(
 			`Wifi connected to '${(connections.wifi as NmcliConnection).name}'`,

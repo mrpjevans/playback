@@ -4,6 +4,29 @@ set -euo pipefail
 
 WAYFIRE_FILE="$HOME/.config/wayfire.ini"
 
+echo "Welcome to the Playback installer"
+
+while true; do	
+	read -sp "Set the access password: " password
+	echo
+
+	if [[ -z "$password" ]]; then
+		echo "The password cannot be empty. Please try again."
+	else
+		break
+	fi
+
+	read -sp "Confirm the access password: " confirmpassword
+	echo
+
+	if [ "$input1" == "$input2" ]; then
+		echo "The passwords do not match. Please try again."
+	else
+		break
+	fi
+
+done
+
 # Updates & Depedencies
 sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install git vlc nodejs npm
@@ -15,6 +38,7 @@ git clone https://github.com/mrpjevans/playback.git $HOME/playback_repo
 # VLC Config
 mkdir $HOME/.config/vlc
 cp $HOME/playback_repo/assets/vlcrc $HOME/.config/vlc/
+sed -i "s/playbackpassword/$password/g" "$HOME/.config/vlc/vlcrc"
 
 # Directory setup
 rm -rf $HOME/playback
@@ -64,6 +88,14 @@ cd $HOME/playback_repo/remote
 npm install
 npm run deploy
 
+cat > $HOME/playback/remote/env.json << EOM
+{
+	vlcPassword: "$password",
+	webPassword: "$password",
+	hotspotPassword: "$password",
+}
+EOM
+
 cat > ./playback_remote.service << EOM
 [Unit]
 Description=Playback Web Server
@@ -80,6 +112,17 @@ sudo mv ./playback_remote.service /usr/lib/systemd/playback_remote.service
 sudo systemctl enable /usr/lib/systemd/playback_remote.service
 sudo systemctl start playback_remote.service
 
+# Conductor
+cd $HOME/playback_repo/conductor
+npm install
+npm run deploy
+
+cat > $HOME/playback/remote/env.json << EOM
+{
+	vlcPassword: "$password",
+}
+EOM
+
 # Enable wifiwatch
 if cat /etc/crontab | grep $HOME/playback/remote/wifiwatch.js; then
     echo "Cron job already exists, skipping"
@@ -92,4 +135,21 @@ fi
 /usr/bin/node $HOME/playback/remote/wifiwatch.js
 
 # Done
-sudo reboot
+while true; do
+		# Prompt the user for a decision; assume 'yes' by default.
+		read -r -p "Do you want to reboot the system? [Y/n] " response
+		case "$response" in
+				[yY][eE][sS]|[yY]|'')  # Yes or default (empty)
+						echo "Rebooting now..."
+						sudo reboot
+						break
+						;;
+				[nN][oO]|[nN])         # No
+						echo "Exiting without reboot."
+						exit 0
+						;;
+				*)                      # Anything else
+						echo "Please answer yes or no."
+						;;
+		esac
+done

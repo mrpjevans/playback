@@ -105,13 +105,13 @@ export async function routes(fastify, _options) {
 	fastify.get("/wifi/", async (_request, reply) => {
 		return reply.view("wifi/index", {
 			connections: await getConnections(),
-			hotspotName: config.wifi.hotspotName,
+			hotspotName: config.hotspotName,
 		});
 	});
 
 	fastify.get("/wifi/ssids", (_request, reply) => {
 		setTimeout(() => {
-			const networks = scanForWifiNetworksWithIw(config.wifi.wifiDevice);
+			const networks = scanForWifiNetworksWithIw(config.wifiDevice);
 			return reply.view("wifi/ssids", { networks });
 		}, 2000);
 	});
@@ -132,7 +132,7 @@ export async function routes(fastify, _options) {
 
 		try {
 			deleteConnection(request.body.ssid);
-		} catch (err) {}
+		} catch (err) { }
 
 		try {
 			connectToWifi(request.body.ssid, request.body.password);

@@ -10,14 +10,12 @@ const defaults = {
 	webUsername: "playback",
 	webPassword: "playback",
 	mediaDir: `${__dirname}/../media`,
-	wifi: {
-		wiredDevice: "eth0",
-		wifiDevice: "wlan0",
-		hotspotName: "playback",
-		hotspotSSID: "playback",
-		hotspotPassword: "playback",
-		dev: process.env.ENVIRONMENT === "dev",
-	},
+	wiredDevice: "eth0",
+	wifiDevice: "wlan0",
+	hotspotName: "playback",
+	hotspotSSID: "playback",
+	hotspotPassword: "playback",
+	dev: process.env.ENVIRONMENT === "dev",
 };
 
 const envFile = `${__dirname}/../../env.json`;
