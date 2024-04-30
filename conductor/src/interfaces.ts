@@ -11,7 +11,7 @@ export interface Item {
 export interface FillerItem {
 	file: string;
 	length?: number;
-	countdown?: Boolean;
+	countdown?: boolean;
 }
 
 export interface Composition {

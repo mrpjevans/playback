@@ -1,4 +1,3 @@
-import { count } from "console";
 import { Composition } from "./interfaces";
 import { log } from "./log";
 import { callVlc, vlcInfo } from "./vlc";

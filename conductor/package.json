@@ -4,7 +4,7 @@
 	"description": "Playback' automated playback system for VLC",
 	"scripts": {
 		"dev": "ENVIRONMENT=dev nodemon src/conductor.ts --watch",
-		"lint": "eslint .",
+		"lint": "eslint ./src",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "rm -rf ./dist && npm run lint && npm run format && tsc",
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -27,10 +27,13 @@
 	"homepage": "https://github.com/mrpjevans/playback#readme",
 	"devDependencies": {
 		"@types/node": "^20.12.7",
-		"eslint": "^9.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.17.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
 		"nodemon": "^3.1.0",
 		"pino-pretty": "^11.0.0",
-		"prettier": "^3.2.5"
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.2"
 	},
 	"dependencies": {
 		"command-line-args": "^5.2.1",
