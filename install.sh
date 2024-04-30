@@ -13,16 +13,15 @@ while true; do
 	if [[ -z "$password" ]]; then
 		echo "The password cannot be empty. Please try again."
 	else
-		break
-	fi
+		
+		read -sp "Confirm the access password: " confirmpassword
+		echo
 
-	read -sp "Confirm the access password: " confirmpassword
-	echo
-
-	if [ "$input1" == "$input2" ]; then
-		echo "The passwords do not match. Please try again."
-	else
-		break
+		if [ "$input1" == "$input2" ]; then
+			echo "The passwords do not match. Please try again."
+		else
+			break
+		fi
 	fi
 
 done
