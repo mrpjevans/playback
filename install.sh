@@ -16,7 +16,7 @@ while true; do
 		read -sp "Confirm the access password: " confirmpassword
 		echo
 
-		if [ "$password" == "$confirmpassword" ]; then
+		if [ "$password" != "$confirmpassword" ]; then
 			echo "The passwords do not match. Please try again."
 		else
 			break
