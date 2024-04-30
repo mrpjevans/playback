@@ -18,7 +18,7 @@ const defaults = {
 	dev: process.env.ENVIRONMENT === "dev",
 };
 
-const envFile = `${__dirname}/../../env.json`;
+const envFile = `${__dirname}/env.json`;
 export const config = fs.existsSync(envFile)
 	? { ...defaults, ...JSON.parse(fs.readFileSync(envFile, "utf-8")) }
 	: defaults;

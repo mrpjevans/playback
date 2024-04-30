@@ -88,9 +88,9 @@ npm run deploy
 
 cat > $HOME/playback/remote/env.json << EOM
 {
-	vlcPassword: "$password",
-	webPassword: "$password",
-	hotspotPassword: "$password",
+	"vlcPassword": "$password",
+	"webPassword": "$password",
+	"hotspotPassword": "$password"
 }
 EOM
 
@@ -115,9 +115,9 @@ cd $HOME/playback_repo/conductor
 npm install
 npm run deploy
 
-cat > $HOME/playback/remote/env.json << EOM
+cat > $HOME/playback/conductor/env.json << EOM
 {
-	vlcPassword: "$password",
+	"vlcPassword": "$password"
 }
 EOM
 
