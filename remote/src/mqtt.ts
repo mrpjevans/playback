@@ -70,7 +70,9 @@ interface IVLCStatus {
 }
 
 async function sendScreenshot() {
-	await exec(`WAYLAND_DISPLAY=wayland-1 grim ${screenshotOutput}`);
+	await exec(
+		`XDG_RUNTIME_DIR=/run/user/1000 WAYLAND_DISPLAY=wayland-1 grim ${screenshotOutput}`,
+	);
 	const screenshot = await fs.readFile(screenshotOutput);
 	client.publish(config.mqttScreenshotTopic, screenshot);
 }
