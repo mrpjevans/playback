@@ -54,13 +54,21 @@ export function getComposition(configPath = null) {
 			length: Joi.number().integer().positive(),
 			countdown: Joi.boolean().optional(),
 		}).optional(),
-		items: Joi.array().items(Joi.object({
-			file: Joi.string().required().custom(checkFile),
-			start: Joi.number().integer().positive().optional(),
-			stop: Joi.number().integer().positive().greater(Joi.ref("start")).optional(),
-			startTime: Joi.number().greater(now).optional(),
-			endTime: Joi.number().greater(Joi.ref("startTime")).optional()
-		}).required().min(1))
+		items: Joi.array().items(
+			Joi.object({
+				file: Joi.string().required().custom(checkFile),
+				start: Joi.number().integer().positive().optional(),
+				stop: Joi.number()
+					.integer()
+					.positive()
+					.greater(Joi.ref("start"))
+					.optional(),
+				startTime: Joi.number().greater(now).optional(),
+				endTime: Joi.number().greater(Joi.ref("startTime")).optional(),
+			})
+				.required()
+				.min(1),
+		),
 	});
 
 	const { error } = schema.validate(composition);
@@ -71,7 +79,7 @@ export function getComposition(configPath = null) {
 		process.exit();
 	}
 
-	log.info("Composition file valid")
+	log.info("Composition file valid");
 
 	return composition;
 }
@@ -79,7 +87,7 @@ export function getComposition(configPath = null) {
 function checkFile(value) {
 	const fullPath = join(composition.basePath, value);
 	if (!fs.existsSync(fullPath)) {
-		throw new Error(`File not found: ${value}`)
+		throw new Error(`File not found: ${value}`);
 	}
 	return true;
 }

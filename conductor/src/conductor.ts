@@ -1,4 +1,4 @@
-import * as commandLineArgs from 'command-line-args';
+import * as commandLineArgs from "command-line-args";
 import { log } from "./log";
 import { tick } from "./tick";
 import { getComposition } from "./compositionParser";
@@ -9,11 +9,11 @@ const optionsDefinitions = [
 		name: "config",
 		alias: "c",
 		type: String,
-		description: "Path to composition file"
-	}
-]
+		description: "Path to composition file",
+	},
+];
 
-const options = commandLineArgs(optionsDefinitions)
+const options = commandLineArgs(optionsDefinitions);
 
 const composition = getComposition(options?.config);
 

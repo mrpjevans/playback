@@ -7,6 +7,7 @@
 		"prettier"
 	],
 	"overrides": [],
+	"ignores": ["dist/*"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",

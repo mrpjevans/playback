@@ -4,8 +4,8 @@ export interface Item {
 	stop?: number;
 	startTime?: number | string;
 	stopTime?: number | string;
-	preRoll?: Item
-	postRoll?: Item
+	preRoll?: Item;
+	postRoll?: Item;
 }
 
 export interface FillerItem {
@@ -25,17 +25,19 @@ interface VlcStatusInformationCategory {
 	$: {
 		name: string;
 	};
-	info: {
-		_: string;
-		$: {
-			name: string;
-		};
-	} | {
-		_: string;
-		$: {
-			name: string;
-		};
-	}[];
+	info:
+		| {
+				_: string;
+				$: {
+					name: string;
+				};
+		  }
+		| {
+				_: string;
+				$: {
+					name: string;
+				};
+		  }[];
 }
 
 interface VlcStatusInformation {

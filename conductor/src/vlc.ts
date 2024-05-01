@@ -41,7 +41,9 @@ export async function vlcInfo() {
 			return category.$.name === "meta";
 		});
 
-		playInfo.file = Array.isArray(category.info) ? category.info.find((info) => info.$.name === "filename")._ : category.info._;
+		playInfo.file = Array.isArray(category.info)
+			? category.info.find((info) => info.$.name === "filename")._
+			: category.info._;
 	}
 
 	return playInfo;

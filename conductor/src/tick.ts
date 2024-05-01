@@ -26,9 +26,7 @@ export async function tick(composition: Composition) {
 	log.debug(playInfo);
 
 	if (playInfo.state === "stopped") {
-
 		if (waitUntil === 0) {
-
 			if (!firstFlag) {
 				cursor++;
 			} else {
@@ -43,9 +41,8 @@ export async function tick(composition: Composition) {
 			const current = composition.items[cursor];
 			waitUntil = (current.startTime as number) ?? 0;
 			if (waitUntil > 0) {
-				log.info(`Waiting until tick ${current.startTime}`)
+				log.info(`Waiting until tick ${current.startTime}`);
 			}
-
 		}
 
 		if (waitUntil === 0 || counter >= waitUntil) {
@@ -58,7 +55,9 @@ export async function tick(composition: Composition) {
 		// Play filler countdown
 		if (waitUntil > 0 && composition.filler && !filling) {
 			log.info(`Filling time with ${composition.filler.file}`);
-			await callVlc(`?command=in_play&input=${composition.basePath}/${composition.filler.file}`);
+			await callVlc(
+				`?command=in_play&input=${composition.basePath}/${composition.filler.file}`,
+			);
 			if (composition.filler.countdown) {
 				const startTime = composition.filler.length - (waitUntil - counter);
 				log.debug(`Playing countdown for ${waitUntil - counter}s`);
@@ -66,20 +65,17 @@ export async function tick(composition: Composition) {
 			}
 			filling = true;
 		}
-
 	}
 
 	const current = composition.items[cursor];
 
-	if (playInfo.state == 'playing') {
-
+	if (playInfo.state == "playing") {
 		log.trace("Playing");
 
 		if (current.stopTime && (current.stopTime as number) <= counter) {
 			log.info(`Stopping playback at ${current.stopTime}s`);
 			await callVlc(`?command=pl_stop`);
 		}
-
 	}
 
 	if (current.stop && playInfo.position >= current.stop) {
@@ -91,7 +87,6 @@ export async function tick(composition: Composition) {
 	if (waitUntil > 0 && filling && counter >= waitUntil) {
 		await callVlc(`?command=pl_stop`);
 	}
-
 }
 
 async function playFile(composition: Composition) {
@@ -105,5 +100,4 @@ async function playFile(composition: Composition) {
 		log.debug(`Starting playback at ${item.start}s`);
 		await callVlc(`?command=seek&val=${item.start}`);
 	}
-
 }
