@@ -28,7 +28,7 @@ logger.info("Connecting to MQTT broker");
 const client = mqtt.connect(config.mqttBroker, {
 	clientId: config.mqttClientId,
 	...(config.mqttUsername && { username: config.mqttUsername }),
-	...(config.mqttPassword && { username: config.mqttPassword }),
+	...(config.mqttPassword && { password: config.mqttPassword }),
 });
 
 logger.info("Starting MQTT relay");
