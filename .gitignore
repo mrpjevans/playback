@@ -136,3 +136,4 @@ remote/media
 conductor/media
 conductor/src/composition.json
 */**/env.json
+*/**/screenshot.png

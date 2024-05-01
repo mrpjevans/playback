@@ -1,4 +1,8 @@
+import { exec as cbexec } from "child_process";
+import * as fs from "fs/promises";
 import { pino } from "pino";
+import { join } from "path";
+import * as util from 'util';
 import * as mqtt from "mqtt";
 
 import { callVLC } from "./lib/vlc";
@@ -13,6 +17,11 @@ const logger = pino({
 		},
 	},
 });
+
+const exec = util.promisify(cbexec);
+
+let sinceLastScreenShot = config.mqttScreenshotInterval ?? 1;
+const screenshotOutput = join(__dirname, "screenshot.png");
 
 logger.info("Connecting to MQTT broker");
 
@@ -33,8 +42,18 @@ setInterval(async () => {
 
 		const parsedStatus = parseVlcStatus(status);
 		logger.debug("Publishing to MQTT");
-		client.publish(config.mqttTopic, JSON.stringify(parsedStatus));
+		await client.publish(config.mqttTopic, JSON.stringify(parsedStatus));
 
+		if (config.mqttScreenshot) {
+			if (sinceLastScreenShot === config.mqttScreenshotInterval) {
+				logger.info("Sending screenshot");
+				await sendScreenshot();
+				sinceLastScreenShot = 1;
+			} else {
+				sinceLastScreenShot++;
+			}
+
+		}
 		logger.debug("Success");
 	} catch (err) {
 		logger.fatal("Error calling VLC or publishing");
@@ -49,6 +68,12 @@ interface IVLCStatus {
 	timeStr?: string;
 	lengthStr?: string;
 	raw: unknown;
+}
+
+async function sendScreenshot() {
+	await exec(`WAYLAND_DISPLAY=wayland-1 grim ${screenshotOutput}`);
+	const screenshot = await fs.readFile(screenshotOutput);
+	client.publish(config.mqttScreenshotTopic, screenshot);
 }
 
 function parseVlcStatus(rawStatus): IVLCStatus {
