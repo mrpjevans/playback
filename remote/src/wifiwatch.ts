@@ -69,9 +69,7 @@ try {
 	}
 
 	if (!connections.wifi) {
-		log.info(
-			`No wifi connection, starting hotspot '${config.hotspotName}'`,
-		);
+		log.info(`No wifi connection, starting hotspot '${config.hotspotName}'`);
 		startAP(config.hotspotName);
 	} else if (connections.hotspotActive) {
 		log.info(`Hotspot '${config.hotspotName}' active`);

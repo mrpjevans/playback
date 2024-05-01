@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { execSync } from "child_process";
 
-import { parseStringPromise } from "xml2js";
+import { callVLC } from "./lib/vlc";
 
 import { config } from "./config";
 import {
@@ -55,20 +55,6 @@ export async function routes(fastify, _options) {
 			return err.message;
 		}
 	});
-
-	async function callVLC(url = "") {
-		const fullURL = `${config.vlcURL}/status.xml${url}`;
-
-		const response = await fetch(fullURL, {
-			headers: {
-				Authorization: `Basic ${btoa(`:${config.vlcPassword}`)}`,
-			},
-		});
-
-		return await parseStringPromise(await response.text(), {
-			explicitArray: false,
-		});
-	}
 
 	//
 	// Settings
@@ -132,7 +118,7 @@ export async function routes(fastify, _options) {
 
 		try {
 			deleteConnection(request.body.ssid);
-		} catch (err) { }
+		} catch (err) {}
 
 		try {
 			connectToWifi(request.body.ssid, request.body.password);

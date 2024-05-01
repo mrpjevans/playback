@@ -110,6 +110,21 @@ sudo mv ./playback_remote.service /usr/lib/systemd/playback_remote.service
 sudo systemctl enable /usr/lib/systemd/playback_remote.service
 sudo systemctl start playback_remote.service
 
+# MQTT Support
+cat > ./playback_mqtt.service << EOM
+[Unit]
+Description=Playback MQTT Client
+
+[Service]
+ExecStart=/usr/bin/node $HOME/playback/remote/mqtt.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOM
+
+sudo mv ./playback_mqtt.service /usr/lib/systemd/playback_mqtt.service
+
 # Conductor
 cd $HOME/playback_repo/conductor
 npm install

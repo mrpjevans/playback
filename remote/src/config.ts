@@ -16,11 +16,10 @@ const defaults = {
 	hotspotSSID: "playback",
 	hotspotPassword: "playback",
 	dev: process.env.ENVIRONMENT === "dev",
-	mqttEnabled: false,
-	mqttBroker: "127.0.0.1",
+	mqttBroker: "mqtt://192.168.1.10",
 	mqttClientId: "playback",
-	mqttUsername: "",
-	mqttPassword: ""
+	mqttTopic: "playback/vlc",
+	mqttInterval: 5000,
 };
 
 const envFile = `${__dirname}/env.json`;
