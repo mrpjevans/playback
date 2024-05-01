@@ -4,7 +4,7 @@
 	"description": "Playback' automated playback system for VLC",
 	"scripts": {
 		"dev": "ENVIRONMENT=dev nodemon src/conductor.ts --watch",
-		"lint": "eslint ./src",
+		"lint": "eslint --ext .ts .",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "rm -rf ./dist && npm run lint && npm run format && tsc",
 		"test": "echo \"Error: no test specified\" && exit 1",
