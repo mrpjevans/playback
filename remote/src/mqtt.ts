@@ -2,7 +2,7 @@ import { exec as cbexec } from "child_process";
 import * as fs from "fs/promises";
 import { pino } from "pino";
 import { join } from "path";
-import * as util from 'util';
+import * as util from "util";
 import * as mqtt from "mqtt";
 
 import { callVLC } from "./lib/vlc";
@@ -52,7 +52,6 @@ setInterval(async () => {
 			} else {
 				sinceLastScreenShot++;
 			}
-
 		}
 		logger.debug("Success");
 	} catch (err) {

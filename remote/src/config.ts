@@ -22,7 +22,7 @@ const defaults = {
 	mqttInterval: 5000,
 	mqttScreenshot: false,
 	mqttScreenshotTopic: "playback/screenshot",
-	mqttScreenshotInterval: 0
+	mqttScreenshotInterval: 0,
 };
 
 const envFile = `${__dirname}/env.json`;
