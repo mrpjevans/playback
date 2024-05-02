@@ -61,6 +61,7 @@ setInterval(async () => {
 }, config.mqttInterval);
 
 interface IVLCStatus {
+	timestamp: string;
 	state: string;
 	volpc: number;
 	filename?: string;
@@ -82,6 +83,7 @@ function parseVlcStatus(rawStatus): IVLCStatus {
 
 	if (!rawStatus.root.information.category[0]) {
 		return {
+			timestamp: new Date().toLocaleString(),
 			state: rawStatus.root.state,
 			volpc,
 			raw: rawStatus,
@@ -104,6 +106,7 @@ function parseVlcStatus(rawStatus): IVLCStatus {
 		.slice(11, 19);
 
 	return {
+		timestamp: new Date().toLocaleString(),
 		state: rawStatus.root.state,
 		volpc,
 		filename,

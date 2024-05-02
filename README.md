@@ -1,6 +1,9 @@
 # playback
 Turn a Raspberry Pi OS into a interruption-free remote-controlled video playback system
 
+## Version
+1.0.1
+
 ## What is it?
 A project borne out of frustration. Trying to find a reliable way of playing back video
 without some daft notification system getting in the way at some point (I'm looking at you
