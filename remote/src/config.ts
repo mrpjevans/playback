@@ -4,6 +4,7 @@ const defaults = {
 	logLevel: "debug",
 	logPretty: true,
 	port: 3000,
+	address: "0.0.0.0",
 	name: "Playback",
 	vlcURL: "http://127.0.0.1:8080/requests",
 	vlcPassword: "playback",
