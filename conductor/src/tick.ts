@@ -27,6 +27,30 @@ export async function tick(composition: Composition) {
 
 	if (playInfo.state === "stopped") {
 		if (waitUntil === 0) {
+
+			// Find start position
+			if (firstFlag && composition.timeType === 'real') {
+				for (let i = 0; i < composition.items.length; i++) {
+					const itemStartTime = (composition.items[i].startTime as number);
+					if (itemStartTime < counter) {
+						if (i === composition.items.length - 1) {
+							cursor = i;
+							break;
+						}
+						const nextStartTime = (composition.items[i + 1].startTime as number)
+						if (nextStartTime > counter) {
+							// How far in are we?
+							if (itemStartTime + composition.items[i].length < counter) {
+								// Already should have finished
+								cursor++;
+								break;
+							}
+							composition.items[i].start = composition.items[i].length - counter;
+						}
+					}
+				}
+			}
+
 			if (!firstFlag) {
 				cursor++;
 			} else {

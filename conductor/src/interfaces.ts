@@ -6,6 +6,7 @@ export interface Item {
 	stopTime?: number | string;
 	preRoll?: Item;
 	postRoll?: Item;
+	length: number;
 }
 
 export interface FillerItem {
@@ -26,18 +27,18 @@ interface VlcStatusInformationCategory {
 		name: string;
 	};
 	info:
-		| {
-				_: string;
-				$: {
-					name: string;
-				};
-		  }
-		| {
-				_: string;
-				$: {
-					name: string;
-				};
-		  }[];
+	| {
+		_: string;
+		$: {
+			name: string;
+		};
+	}
+	| {
+		_: string;
+		$: {
+			name: string;
+		};
+	}[];
 }
 
 interface VlcStatusInformation {
