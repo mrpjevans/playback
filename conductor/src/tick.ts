@@ -43,9 +43,8 @@ export async function tick(composition: Composition) {
 						if (itemEndTime < counter) {
 							// Already finished, in filling time
 							cursor = i;
-
 						} else {
-							composition.items[cursor].startTime = itemEndTime - counter;
+							composition.items[cursor].startTime = counter;
 						}
 						break;
 					}
