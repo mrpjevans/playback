@@ -32,21 +32,22 @@ export async function tick(composition: Composition) {
 			if (firstFlag && composition.timeType === 'real') {
 				for (let i = 0; i < composition.items.length; i++) {
 					const itemStartTime = (composition.items[i].startTime as number);
-					if (itemStartTime < counter) {
-						if (i === composition.items.length - 1) {
-							cursor = i;
+					if (itemStartTime > counter) {
+						if (i === 0) {
+							cursor = 0;
 							break;
 						}
-						const nextStartTime = (composition.items[i + 1].startTime as number)
-						if (nextStartTime > counter) {
-							// How far in are we?
-							if (itemStartTime + composition.items[i].length < counter) {
-								// Already should have finished
-								cursor++;
-								break;
-							}
-							composition.items[i].start = composition.items[i].length - counter;
+						cursor = i - 1;
+						const item = composition.items[cursor];
+						const itemEndTime = (item.startTime as number) + item.length;
+						if (itemEndTime < counter) {
+							// Already finished, in filling time
+							cursor = i;
+
+						} else {
+							composition.items[cursor].startTime = itemEndTime - counter;
 						}
+						break;
 					}
 				}
 			}
